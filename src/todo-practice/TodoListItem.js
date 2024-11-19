@@ -32,10 +32,12 @@ const CheckBoxStyle = styled.div`
 const TextStyle = styled.div`
   margin-left: 0.5rem;
   flex: 1;
-  &.checked {
-    color: #adb5db;
-    text-decoration: line-through;
-  }
+`;
+const CheckedTextStyle = styled.div`
+  margin-left: 0.5rem;
+  flex: 1;
+  color: #adb5db;
+  text-decoration: line-through;
 `;
 const RemoveStyle = styled.div`
   display: flex;
@@ -48,15 +50,28 @@ const RemoveStyle = styled.div`
   }
 `;
 
-const TodoListItem = () => {
+const TodoListItem = ({ todo, onRemove, onToggle }) => {
+  const { id, text, checked } = todo;
+
   return (
     <TodoListItemWrap>
-      <CheckBoxStyle>
-        <CheckBoxOutlineBlankIcon />
-        <TextStyle>할 일</TextStyle>
+      <CheckBoxStyle onClick={() => onToggle(id)}>
+        {checked !== true ? (
+          <>
+            <CheckBoxOutlineBlankIcon />
+            <TextStyle>{text}</TextStyle>
+          </>
+        ) : (
+          <>
+            <CheckBoxIcon />
+            <CheckedTextStyle>{text}</CheckedTextStyle>
+          </>
+        )}
+        {/* {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+        <TextStyle>{text}</TextStyle> */}
       </CheckBoxStyle>
       <div>
-        <RemoveStyle>
+        <RemoveStyle onClick={() => onRemove(id)}>
           <RemoveCircleOutlineIcon />
         </RemoveStyle>
       </div>

@@ -8,20 +8,12 @@ const TodoListWrap = styled.div`
   overflow-y: auto;
 `;
 
-const Todolist = () => {
+const Todolist = ({ todos, onRemove, onToggle }) => {
   return (
     <TodoListWrap>
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
+      {todos.map(todo => (
+        <TodoListItem todo={todo} key={todo.id} onRemove={onRemove} onToggle={onToggle} />
+      ))}
     </TodoListWrap>
   );
 };

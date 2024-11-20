@@ -7,7 +7,7 @@ import Profile from './Profile';
 const SApp = () => {
   return (
     <>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <div>
           <ul>
             <li>
@@ -29,7 +29,7 @@ const SApp = () => {
           <Route path='/about' element={<About />} />
           <Route path='/profile/:username' element={<Profile />} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </>
   );
 };

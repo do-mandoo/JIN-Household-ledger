@@ -28,14 +28,15 @@ const MainPage = () => {
 const styles = {
   container: {
     display: 'flex',
-    height: '100vh',
-    backgroundColor: '#ffc2c2',
+    minHeight: '100vh',
+    backgroundColor: '#110f0f',
   },
   right: {
     flex: 1,
     padding: '20px',
     backgroundColor: '#e8ffb6',
     borderRadius: '0 20px 20px 0',
+    // overflowY: 'auto',
   },
 };
 

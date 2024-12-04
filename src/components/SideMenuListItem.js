@@ -10,12 +10,12 @@ const SideMenuListItem = ({ list }) => {
         <ListItemIcon sx={{ minWidth: '40px' }}>{icon}</ListItemIcon>
         <ListItemText
           sx={{ color: 'white' }}
-          primary={
-            <Typography variant='h6' sx={{ fontFamily: "'Do Hyeon', sans-serif" }}>
-              {firstText}
+          primary={<Typography variant='h6'>{firstText}</Typography>}
+          secondary={
+            <Typography variant='p' sx={{ fontFamily: "'Poppins', sans-serif" }}>
+              {secondText}
             </Typography>
           }
-          secondary={<Typography variant='p'>{secondText}</Typography>}
         />
       </ListItemButton>
     </ListItem>

@@ -6,6 +6,7 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 import flexCenter from '../assets/flexCenter';
+
 const SideMenuList = () => {
   const menuList = [
     {

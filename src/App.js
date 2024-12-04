@@ -4,7 +4,7 @@ import MainPage from './pages/MainPage';
 
 const theme = createTheme({
   typography: {
-    fontFamily: "'Poppins',sans-serif",
+    fontFamily: "'Do Hyeon',sans-serif",
   },
 });
 

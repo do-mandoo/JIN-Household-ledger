@@ -23,7 +23,7 @@ const SideMenuBar = () => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          backgroundColor: 'rgb(74, 74, 74)',
+          bgcolor: 'rgb(74, 74, 74)',
           borderRadius: '20px 0 0 20px',
         },
       }}

@@ -4,14 +4,15 @@ import ExpensesAnalysis from '../analysisDashboard/ExpensesAnalysis';
 import SavingsAnalysis from '../analysisDashboard/SavingsAnalysis';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 import { expensesData } from '../../data/MockDatas';
+import { savingsData } from '../../data/MockDatas';
 
 function TabPanel({ children, value, index, ...other }) {
   return (
     <div
       role='tabpanel'
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -22,23 +23,24 @@ function TabPanel({ children, value, index, ...other }) {
     </div>
   );
 }
-// TabPanel.propTypes = {
-//   children: PropTypes.node,
-//   index: PropTypes.number.isRequired,
-//   value: PropTypes.number.isRequired,
-// };
-const categories = [
+
+const expensisCategories = [
+  '미분류',
   '식비',
-  '교통/차량',
+  '주거/통신',
+  '생활용품',
   '의복/미용',
   '건강/문화',
-  '주거/통신',
-  '미분류',
-  '생활용품',
-  '기타',
+  '교육/육아',
+  '교통/차량',
+  '경조사/회비',
+  '세금/이자',
+  '용돈/기타',
+  '카드 대금',
 ];
+const savingsCategories = ['미분류', '주수입', '부수입', '전월이월', '저축/보험'];
 
-const combinedData = [
+const expensisCombinedData = [
   ...expensesData.meetExpenses.map(d => ({
     ...d,
     category: d.category.split(' > ')[0], // "식비 > 간식" -> "식비"
@@ -51,8 +53,16 @@ const combinedData = [
   })),
 ];
 
+const savingsCombinedData = [
+  ...savingsData.savings.map(d => ({
+    ...d,
+    category: d.category.split(' > ')[0], // "식비 > 간식" -> "식비"
+    group: '수입',
+  })),
+];
+
 const AnalysisWrap = () => {
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState(0);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
@@ -61,19 +71,18 @@ const AnalysisWrap = () => {
   return (
     <div>
       <Header />
-      Analysis분석
       <Box sx={{ minHeight: 760 }}>
         <Box>
-          <Tabs value={value} onChange={handleChange} aria-label='simple tabs'>
+          <Tabs value={value} onChange={handleChange} aria-label='analysis-tabs'>
             <Tab label='지출' id='tab-0' />
             <Tab label='수입' id='tab-1' />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <ExpensesAnalysis data={combinedData} categories={categories} />
+          <ExpensesAnalysis data={expensisCombinedData} categories={expensisCategories} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <SavingsAnalysis />
+          <SavingsAnalysis data={savingsCombinedData} categories={savingsCategories} />
         </TabPanel>
       </Box>
     </div>

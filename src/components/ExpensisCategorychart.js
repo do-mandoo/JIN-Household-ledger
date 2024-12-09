@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { Box, Typography } from '@mui/material';
 
-const Datechart = ({ data, categories }) => {
+const ExpensisCategorychart = ({ data, categories }) => {
   const chartRef = useRef();
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const Datechart = ({ data, categories }) => {
 
     const margin = { top: 20, right: 20, bottom: 20, left: 50 };
     const width = 1400 - margin.left - margin.right;
-    const height = 350 - margin.top - margin.bottom;
+    const height = 250 - margin.top - margin.bottom;
 
     const x0 = d3
       .scaleBand()
@@ -97,16 +97,16 @@ const Datechart = ({ data, categories }) => {
       .attr('x', d => x1(d.group) + x1.bandwidth() / 2) // 텍스트 중앙
       .attr('y', d => y(d.amount) - 5) // 막대 약간 위
       .attr('text-anchor', 'middle')
-      .text(d => d.amount) // 금액 표시
+      .text(d => d.amount.toLocaleString()) // 금액 표시
       .style('fill', 'black') // 텍스트 색상
       .style('font-size', '12px'); // 글자 크기
   }, [data]);
 
   return (
     <Box>
-      <svg ref={chartRef} width='100%' height='350'></svg>
+      <svg ref={chartRef} width='100%' height='250'></svg>
     </Box>
   );
 };
 
-export default Datechart;
+export default ExpensisCategorychart;

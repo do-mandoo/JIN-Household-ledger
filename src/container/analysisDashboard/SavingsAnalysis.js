@@ -1,16 +1,16 @@
 import React from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import ExpensisCategorychart from '../../components/ExpensisCategorychart';
-import ExpensisDatechart from '../../components/ExpensisDatechart';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
+import SavingsCategorychart from '../../components/SavingsCategorychart';
+import SavingsDatechart from '../../components/SavingsDatechart';
 
-const ExpensesAnalysis = ({ data, categories }) => {
+const SavingsAnalysis = ({ data, categories }) => {
   return (
     <Box sx={{}}>
       {/* 분류별지출 */}
       <Box sx={{ width: '1400px', m: '5px auto' }}>
         <Typography sx={{ fontSize: '20px' }}>분류 전체</Typography>
-        <ExpensisCategorychart data={data} categories={categories} />
+        <SavingsCategorychart data={data} categories={categories} />
       </Box>
 
       <Divider sx={{ bgcolor: 'black' }} />
@@ -40,7 +40,7 @@ const ExpensesAnalysis = ({ data, categories }) => {
                 alignItems: 'center',
                 border: '1px solid #aaa',
                 borderRadius: '20px',
-                p: '5px 10px',
+                p: '7px 90px',
                 cursor: 'pointer',
               }}
             >
@@ -52,10 +52,10 @@ const ExpensesAnalysis = ({ data, categories }) => {
             </Box>
           ))}
         </Box>
-        <ExpensisDatechart data={data} categories={categories} />
+        <SavingsDatechart data={data} categories={categories} />
       </Box>
     </Box>
   );
 };
 
-export default ExpensesAnalysis;
+export default SavingsAnalysis;

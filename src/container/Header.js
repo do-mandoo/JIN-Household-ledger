@@ -1,13 +1,11 @@
-import { Avatar, Box, Paper, Stack, styled, Typography } from '@mui/material';
+import { Avatar, Box, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Face3Icon from '@mui/icons-material/Face3';
 
 const Header = () => {
   const getDate = new Date();
-  const today = getDate.getFullYear() + '-' + getDate.getMonth() + '-' + getDate.getDate();
-  console.log(today, 'today');
+  const today = getDate.getFullYear() + '-' + (getDate.getMonth() + 1) + '-' + getDate.getDate();
 
   return (
     <Stack direction='row' spacing={2} sx={{ mb: '20px' }}>

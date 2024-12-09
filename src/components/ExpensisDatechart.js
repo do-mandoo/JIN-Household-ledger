@@ -2,19 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { Box, Typography } from '@mui/material';
 
-const Barchart = ({ data }) => {
+const ExpensisDatechart = ({ data, categories }) => {
   const chartRef = useRef();
-
-  const categories = [
-    '식비',
-    '교통/차량',
-    '의복/미용',
-    '건강/문화',
-    '주거/통신',
-    '미분류',
-    '생활용품',
-    '기타',
-  ];
 
   useEffect(() => {
     const svg = d3.select(chartRef.current);
@@ -108,7 +97,7 @@ const Barchart = ({ data }) => {
       .attr('x', d => x1(d.group) + x1.bandwidth() / 2) // 텍스트 중앙
       .attr('y', d => y(d.amount) - 5) // 막대 약간 위
       .attr('text-anchor', 'middle')
-      .text(d => d.amount) // 금액 표시
+      .text(d => d.amount.toLocaleString()) // 금액 표시
       .style('fill', 'black') // 텍스트 색상
       .style('font-size', '12px'); // 글자 크기
   }, [data]);
@@ -120,4 +109,4 @@ const Barchart = ({ data }) => {
   );
 };
 
-export default Barchart;
+export default ExpensisDatechart;

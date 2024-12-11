@@ -1,62 +1,73 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DashboardDonutchart from '../../components/DashboardDonutchart';
+import { donutData } from '../../data/DonutData';
+import { Box, Card, Grid2, Paper, Typography } from '@mui/material';
 
 const MiddleSection = () => {
+  const data = donutData();
+
   return (
-    <MiddleWrap>
-      <TitleWrap>
-        <TitleStyle>지출</TitleStyle>
+    // 150높이에 맞게 스타일링 조정하기
+    <Box sx={{ Height: '150px', mb: '20px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant='h4' sx={{ fontSize: '20px' }}>
+          지출
+        </Typography>
         <Link to='/expenses'>
-          <ButtonStyle>지출 모두 보기 &gt; </ButtonStyle>
+          <Typography>지출 모두보기</Typography>
         </Link>
-      </TitleWrap>
-      <ListWrap>
-        <ListItemWrap>1</ListItemWrap>
-        <ListItemWrap>2</ListItemWrap>
-        <ListItemWrap>3</ListItemWrap>
-        <ListItemWrap>4</ListItemWrap>
-        <ListItemWrap>5</ListItemWrap>
-      </ListWrap>
-    </MiddleWrap>
+      </Box>
+      <Grid2
+        container
+        spacing={3}
+        size={{ xs: 6, md: 5 }}
+        sx={{ display: 'flex', justifyContent: 'space-between' }}
+      >
+        {data.map((item, index) => (
+          <Grid2 item xs={12} sm={6} md={4} key={index}>
+            <Paper>
+              <Card
+                variant='none'
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  // flexDirection: 'column',
+                  alignItems: 'center',
+                  // boxShadow: 3,
+                  borderRadius: 2,
+                  maxWidth: '300px',
+                }}
+              >
+                <DashboardDonutchart
+                  data={[item]}
+                  width={120}
+                  height={120}
+                  innerRadius={40}
+                  outerRadius={60}
+                />
+                <Box sx={{ m: '0 20px' }}>
+                  <Typography
+                    variant='subtitle1'
+                    sx={{ mt: 2, fontSize: '24px', textAlign: 'end' }}
+                  >
+                    {item.label}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{ fontSize: '18px', color: '#242424', textAlign: 'end' }}
+                  >
+                    - {item.value.toLocaleString('ko-KR')} 원
+                  </Typography>
+                </Box>
+              </Card>
+            </Paper>
+          </Grid2>
+        ))}
+      </Grid2>
+    </Box>
   );
 };
-
-const MiddleWrap = styled.div`
-  background-color: aqua;
-  margin-bottom: 20px;
-`;
-const TitleWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const TitleStyle = styled.h3`
-  font-size: 30px;
-  margin: 0;
-  font-weight: 100;
-`;
-const ListWrap = styled.div`
-  background-color: yellow;
-  display: flex;
-`;
-const ButtonStyle = styled.div`
-  background-color: #90ff65;
-  border: none;
-  display: flex;
-  /* flex-direction: row-reverse; */
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const ListItemWrap = styled.li`
-  background-color: pink;
-  /* display: flex; */
-  flex: 1;
-  margin: 5px;
-  list-style: none;
-  min-height: 150px;
-`;
 
 export default MiddleSection;

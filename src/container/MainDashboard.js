@@ -1,17 +1,17 @@
 import React from 'react';
 import Header from './Header';
-import TopSection from './MainDashboard/TopSection';
-import MiddleSection from './MainDashboard/MiddleSection';
-import BottomSection from './MainDashboard/BottomSection';
+import TopSection from './mainDashboard/TopSection';
+import MiddleSection from './mainDashboard/MiddleSection';
+import BottomSection from './mainDashboard/BottomSection';
 
 const MainDashboard = () => {
   return (
-    <div>
+    <>
       <Header />
       <TopSection />
       <MiddleSection />
       <BottomSection />
-    </div>
+    </>
   );
 };
 

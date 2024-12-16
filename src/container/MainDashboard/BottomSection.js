@@ -21,8 +21,8 @@ const BottomSection = () => {
   const data = donutData();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid2 container spacing={2}>
-        <Grid2 size={{ xs: 6, md: 7 }}>
+      <Grid2 container spacing={4}>
+        <Grid2 size={{ xs: 6, md: 7.25 }}>
           <Paper elevation={0} sx={{ bgcolor: '#ddd', minHeight: '350px', p: 1 }}>
             <Card variant='none'>
               <Box sx={{ display: 'flex' }}>
@@ -69,7 +69,7 @@ const BottomSection = () => {
           </Paper>
         </Grid2>
         {/* 두번째 박스 */}
-        <Grid2 size={{ xs: 6, md: 5 }}>
+        <Grid2 size={{ xs: 6, md: 4.75 }}>
           <Paper elevation={0} sx={{ bgcolor: '#ddd', minHeight: '350px', p: 1 }}>
             <Card variant='none'>
               <Box sx={{ display: 'flex' }}>

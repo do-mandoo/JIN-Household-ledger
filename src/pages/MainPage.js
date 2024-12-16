@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SideMenuBar from '../container/SideMenuBar';
-import SavingsWrap from '../container/SideBar/SavingsWrap';
-import ExpensesWrap from '../container/SideBar/ExpensesWrap';
+import SavingsWrap from '../container/sideBar/SavingsWrap';
+import ExpensesWrap from '../container/sideBar/ExpensesWrap';
 import MainDashboard from '../container/MainDashboard';
-import AnalysisWrap from '../container/SideBar/AnalysisWrap';
+import AnalysisWrap from '../container/sideBar/AnalysisWrap';
 
 const MainPage = () => {
   return (

@@ -32,8 +32,8 @@ import PieChartIcon from '@mui/icons-material/PieChart';
 const TopSection = () => {
   return (
     <Box sx={{ flexGrow: 1, mb: '20px' }}>
-      <Grid2 container spacing={2}>
-        <Grid2 size={{ xs: 6, md: 7 }}>
+      <Grid2 container spacing={5}>
+        <Grid2 size={{ xs: 6, md: 7.25 }}>
           <Paper elevation={0} sx={{ bgcolor: '#ddd', minHeight: '350px', p: 1 }}>
             <Card variant='none'>
               <Typography variant='subtitle2' sx={{ fontSize: '20px', mb: '20px' }}>
@@ -77,7 +77,7 @@ const TopSection = () => {
           </Paper>
         </Grid2>
         {/* 두번째 박스 */}
-        <Grid2 size={{ xs: 6, md: 5 }}>
+        <Grid2 size={{ xs: 6, md: 4.75 }}>
           <Paper elevation={0} sx={{ bgcolor: '#aaa', minHeight: '350px', p: 1 }}>
             <Card variant='none' sx={{ bgcolor: '#5cb74c' }}>
               <Box

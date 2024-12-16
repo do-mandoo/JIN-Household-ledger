@@ -10,7 +10,7 @@ const MiddleSection = () => {
 
   return (
     // 150높이에 맞게 스타일링 조정하기
-    <Box sx={{ Height: '150px', mb: '20px' }}>
+    <Box sx={{ Height: '150px', mb: '40px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant='h4' sx={{ fontSize: '20px' }}>
           지출
@@ -21,7 +21,7 @@ const MiddleSection = () => {
       </Box>
       <Grid2
         container
-        spacing={3}
+        spacing={4}
         size={{ xs: 6, md: 5 }}
         sx={{ display: 'flex', justifyContent: 'space-between' }}
       >

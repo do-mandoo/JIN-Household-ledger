@@ -8,7 +8,7 @@ const Header = () => {
   const today = getDate.getFullYear() + '-' + (getDate.getMonth() + 1) + '-' + getDate.getDate();
 
   return (
-    <Stack direction='row' spacing={2} sx={{ mb: '20px' }}>
+    <Stack direction='row' spacing={5} sx={{ mb: '40px' }}>
       <Paper
         elevation={0}
         sx={{
@@ -35,17 +35,18 @@ const Header = () => {
           </Box>
         </Box>
       </Paper>
+      {/*  */}
       <Paper
         elevation={0}
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
           alignItems: 'center',
-          flex: 1.5,
+          flex: 1.28,
           padding: 1,
         }}
       >
-        <Box sx={{ fontSize: '24px', mr: '10px' }}>{today}</Box>
+        <Box sx={{ fontSize: '24px', mr: '30px' }}>{today}</Box>
         <Avatar sx={{ width: 60, minHeight: 60, bgcolor: '#aab3ff' }}>
           <Face3Icon sx={{ fontSize: '30px' }} />
         </Avatar>

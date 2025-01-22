@@ -27,44 +27,12 @@ const BottomSection = () => {
             <Card variant='none'>
               <Box sx={{ display: 'flex' }}>
                 <Typography variant='subtitle2' sx={{ fontSize: '20px', mb: '20px' }}>
-                  입출금 내역
+                  투자 분석 추이
                 </Typography>
-                <Link to='/expenses'>
-                  <Typography>지출 추가 입력</Typography>
+                <Link to='/investmens'>
+                  <Typography>투자 분석 더보기</Typography>
                 </Link>
               </Box>
-              <TableContainer component={Paper} sx={{ bgcolor: 'peru' }}>
-                <Table>
-                  <TableBody>
-                    {/* 5개의 열만 나열 */}
-                    <TableRow>
-                      <TableCell>10.2</TableCell>
-                      <TableCell>아이스크림할인점</TableCell>
-                      <TableCell>800원</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>10.5</TableCell>
-                      <TableCell>아이스크림할인점</TableCell>
-                      <TableCell>900원</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>10.6</TableCell>
-                      <TableCell>아이스크림할인점</TableCell>
-                      <TableCell>1000원</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>10.8</TableCell>
-                      <TableCell>아이스크림할인점</TableCell>
-                      <TableCell>1200원</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>10.10</TableCell>
-                      <TableCell>아이스크림할인점</TableCell>
-                      <TableCell>600원</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
             </Card>
           </Paper>
         </Grid2>

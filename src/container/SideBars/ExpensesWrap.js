@@ -43,6 +43,8 @@ const rowIndividualData = [
   createIndividualDatas('10.15', '후불교통비빠져나감', '54,000', '교통/차량>대중교통비', ''),
 ];
 
+const tableCellStyle = '';
+
 const ExpensesWrap = () => {
   return (
     <>
@@ -51,35 +53,37 @@ const ExpensesWrap = () => {
         {/* -------------------------공금 지출----------------------*/}
         <Box sx={{ bgcolor: 'skyblue', mb: '20px' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '50px' }}>
-            <Typography sx={{ fontSize: '24px', lineHeight: 2 }}>공금지출</Typography>
+            <Typography sx={{ fontSize: '26px', lineHeight: 2 }}>공금지출</Typography>
             <Box sx={{ display: 'flex' }}>
-              <Typography sx={{ fontSize: '24px', lineHeight: 2 }}>지출 합계: 000,000원</Typography>
-              <Typography sx={{ fontSize: '24px', lineHeight: 2 }}>정산 합계: 000,000원</Typography>
+              <Typography sx={{ fontSize: '26px', lineHeight: 2 }}>지출 합계: 000,000원</Typography>
+              <Typography sx={{ fontSize: '26px', lineHeight: 2, ml: '20px' }}>
+                정산 합계: 000,000원
+              </Typography>
             </Box>
           </Box>
 
           {/* 공금지출 테이블 */}
-          <TableContainer component={Paper} sx={{ bgcolor: 'blueviolet', maxHeight: 260 }}>
+          <TableContainer component={Paper} sx={{ bgcolor: 'blueviolet', maxHeight: 250 }}>
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>날짜</TableCell>
-                  <TableCell>사용내역</TableCell>
-                  <TableCell>금액</TableCell>
-                  <TableCell>분류</TableCell>
-                  <TableCell>정산유무</TableCell>
-                  <TableCell>기타</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>날짜</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>사용내역</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>금액</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>분류</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>정산유무</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>기타</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rowMeetData.map(row => (
                   <TableRow key={row.date}>
-                    <TableCell>{row.date}</TableCell>
-                    <TableCell>{row.details}</TableCell>
-                    <TableCell>{row.amount}</TableCell>
-                    <TableCell>{row.category}</TableCell>
-                    <TableCell>{row.yn}</TableCell>
-                    <TableCell>{row.etc}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.date}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.details}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.amount}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.category}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.yn}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.etc}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -90,35 +94,35 @@ const ExpensesWrap = () => {
         {/* -------------------------개인 지출----------------------*/}
         <Box sx={{ bgcolor: 'greenyellow' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '50px' }}>
-            <Typography sx={{ fontSize: '24px', lineHeight: 2 }}>개인지출</Typography>
+            <Typography sx={{ fontSize: '26px', lineHeight: 2 }}>개인지출</Typography>
             <Box sx={{ display: 'flex' }}>
-              <Typography sx={{ fontSize: '24px', lineHeight: 2 }}>지출 합계: 000,000원</Typography>
-              <Typography sx={{ fontSize: '24px', lineHeight: 2 }}>
+              <Typography sx={{ fontSize: '26px', lineHeight: 2 }}>지출 합계: 000,000원</Typography>
+              <Typography sx={{ fontSize: '26px', lineHeight: 2, ml: '20px' }}>
                 전체 지출 합계: 000,000원
               </Typography>
             </Box>
           </Box>
 
           {/* 개인 지출 테이블 */}
-          <TableContainer component={Paper} sx={{ bgcolor: 'yellowgreen', maxHeight: 400 }}>
+          <TableContainer component={Paper} sx={{ bgcolor: 'yellowgreen', maxHeight: 385 }}>
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>날짜</TableCell>
-                  <TableCell>사용내역</TableCell>
-                  <TableCell>금액</TableCell>
-                  <TableCell>분류</TableCell>
-                  <TableCell>기타</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>날짜</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>사용내역</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>금액</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>분류</TableCell>
+                  <TableCell sx={{ fontSize: '18px' }}>기타</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rowIndividualData.map(row => (
                   <TableRow key={row.date}>
-                    <TableCell>{row.date}</TableCell>
-                    <TableCell>{row.details}</TableCell>
-                    <TableCell>{row.amount}</TableCell>
-                    <TableCell>{row.category}</TableCell>
-                    <TableCell>{row.etc}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.date}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.details}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.amount}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.category}</TableCell>
+                    <TableCell sx={{ fontSize: '18px' }}>{row.etc}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

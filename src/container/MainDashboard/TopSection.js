@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import TopSectionLineChart from './TopSectionLineChart';
+// import TopSectionLineChart from './TopSectionLineChart';
 import PentagonIcon from '@mui/icons-material/Pentagon';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
@@ -71,7 +71,7 @@ const TopSection = () => {
                 </Box>
               </Box>
               <Box sx={{ height: '150px', textAlign: 'center', mb: '5px' }}>
-                <TopSectionLineChart />
+                {/* <TopSectionLineChart /> */}
               </Box>
             </Card>
           </Paper>

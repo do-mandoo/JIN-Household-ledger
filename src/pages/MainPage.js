@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SavingsWrap from '../container/SideBars/SavingsWrap';
 import SideMenuBar from '../container/SideMenuBar';
-import SavingsWrap from '../container/sideBar/SavingsWrap';
-import ExpensesWrap from '../container/sideBar/ExpensesWrap';
 import MainDashboard from '../container/MainDashboard';
-import AnalysisWrap from '../container/sideBar/AnalysisWrap';
+import ExpensesWrap from '../container/SideBars/ExpensesWrap';
+import AnalysisWrap from '../container/SideBars/AnalysisWrap';
+import InvestmentsWrap from '../container/SideBars/InvestmentsWrap';
 
 const MainPage = () => {
   return (
@@ -16,6 +17,7 @@ const MainPage = () => {
               <Route path='/' element={<MainDashboard />} />
               <Route path='/expenses' element={<ExpensesWrap />} />
               <Route path='/savings' element={<SavingsWrap />} />
+              <Route path='/investments' element={<InvestmentsWrap />} />
               <Route path='/analysis' element={<AnalysisWrap />} />
             </Routes>
           </div>

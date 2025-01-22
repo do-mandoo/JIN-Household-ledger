@@ -5,6 +5,7 @@ import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import flexCenter from '../assets/flexCenter';
 
 const SideMenuList = () => {
@@ -32,6 +33,13 @@ const SideMenuList = () => {
     },
     {
       id: 4,
+      firstText: '투자',
+      secondText: 'Investments',
+      link: '/investments',
+      icon: <AccountBalanceWalletOutlinedIcon sx={{ color: 'white' }} />,
+    },
+    {
+      id: 5,
       firstText: '분석',
       secondText: 'Analysis',
       link: '/analysis',

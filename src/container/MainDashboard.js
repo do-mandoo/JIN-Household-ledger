@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './Header';
-import TopSection from './mainDashboard/TopSection';
-import MiddleSection from './mainDashboard/MiddleSection';
-import BottomSection from './mainDashboard/BottomSection';
+import TopSection from './MainDashboard/TopSection';
+import MiddleSection from './MainDashboard/MiddleSection';
+import BottomSection from './MainDashboard/BottomSection';
 
 const MainDashboard = () => {
   return (

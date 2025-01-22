@@ -33,7 +33,7 @@ const SideMenuBar = () => {
       <Box sx={{ ...flexCenter({ flexDirection: 'row' }), margin: '30px 0 20px 0' }}>
         <Link to='/' style={{ ...flexCenter({ flexDirection: 'row' }), textDecoration: 'none' }}>
           <InsightsIcon sx={{ fontSize: 40, color: 'rgb(4, 142, 84)' }} />
-          <Typography sx={{ ...koFont, fontWeight: 'bold' }}>&nbsp;진&nbsp;</Typography>
+          <Typography sx={{ ...koFont, fontWeight: 'bold', p: '0 10px' }}>진</Typography>
           <Typography sx={{ ...koFont }}>가계부</Typography>
         </Link>
       </Box>

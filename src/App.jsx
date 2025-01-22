@@ -1,7 +1,6 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import './App.css';
 import MainPage from './pages/MainPage';
-import IDBPractice from './practice/idbPractice/IDBPractice';
 
 const theme = createTheme({
   typography: {
@@ -13,7 +12,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <MainPage />
-      {/* <IDBPractice /> */}
     </ThemeProvider>
   );
 }

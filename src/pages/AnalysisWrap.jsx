@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Header from '../Header';
-import ExpensesAnalysis from '../analysisDashboard/ExpensesAnalysis';
-import SavingsAnalysis from '../analysisDashboard/SavingsAnalysis';
+import Header from '../container/Header';
+import ExpensesAnalysis from '../container/analysisDashboard/ExpensesAnalysis';
+import SavingsAnalysis from '../container/analysisDashboard/SavingsAnalysis';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
-import { expensesData } from '../../data/MockDatas';
-import { savingsData } from '../../data/MockDatas';
+import { expensesData } from '../data/MockDatas';
+import { savingsData } from '../data/MockDatas';
 
 function TabPanel({ children, value, index, ...other }) {
   return (

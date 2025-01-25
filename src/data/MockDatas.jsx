@@ -7,7 +7,6 @@ export const expensesData = {
       amount: 28000,
       category: '식비 > 간식',
       yn: '무',
-      etc: '',
     },
     {
       id: 2,
@@ -16,7 +15,6 @@ export const expensesData = {
       amount: 2000,
       category: '식비 > 간식',
       yn: '무',
-      etc: '',
     },
     {
       id: 3,
@@ -25,7 +23,6 @@ export const expensesData = {
       amount: 25000,
       category: '주거/통신 > 기타',
       yn: '무',
-      etc: '',
     },
     {
       id: 4,
@@ -34,7 +31,6 @@ export const expensesData = {
       amount: 72000,
       category: '식비 > 기타',
       yn: '유',
-      etc: '',
     },
     {
       id: 5,
@@ -43,7 +39,6 @@ export const expensesData = {
       amount: 8200,
       category: '교통/차량 > 대중교통비',
       yn: '유',
-      etc: '',
     },
     // {
     //   id: 6,
@@ -52,7 +47,7 @@ export const expensesData = {
     //   amount: 110000,
     //   category: '건강/문화 > 기타',
     //   yn: '유',
-    //   etc: '',
+    //
     // },
     {
       id: 7,
@@ -61,7 +56,6 @@ export const expensesData = {
       amount: 1002000,
       category: '기타 > 기타',
       yn: '유',
-      etc: '',
     },
   ],
   individualExpenses: [
@@ -71,7 +65,6 @@ export const expensesData = {
       details: '아이스크림 할인점',
       amount: 8000,
       category: '식비 > 간식',
-      etc: '',
     },
     {
       id: 2,
@@ -79,7 +72,6 @@ export const expensesData = {
       details: '편의점',
       amount: 2000,
       category: '식비 > 기타',
-      etc: '',
     },
     {
       id: 3,
@@ -87,7 +79,6 @@ export const expensesData = {
       details: 'OTT결제',
       amount: 25000,
       category: '주거/통신 > 기타',
-      etc: '',
     },
     {
       id: 4,
@@ -95,7 +86,6 @@ export const expensesData = {
       details: '쿠팡에서 장봄',
       amount: 3190000,
       category: '식비 > 기타',
-      etc: '',
     },
     {
       id: 5,
@@ -103,7 +93,6 @@ export const expensesData = {
       details: '후불교통비빠져나감',
       amount: 54000,
       category: '교통/차량 > 대중교통비',
-      etc: '',
     },
     // {
     //   id: 6,
@@ -111,7 +100,7 @@ export const expensesData = {
     //   details: '아이스크림 할인점',
     //   amount: 8000,
     //   category: '생활용품 > 기타',
-    //   etc: '',
+    //
     // },
     {
       id: 7,
@@ -119,7 +108,6 @@ export const expensesData = {
       details: '편의점',
       amount: 1992000,
       category: '미분류 > 기타',
-      etc: '',
     },
     {
       id: 8,
@@ -127,7 +115,6 @@ export const expensesData = {
       details: 'OTT결제',
       amount: 925000,
       category: '주거/통신 > 기타',
-      etc: '',
     },
     {
       id: 9,
@@ -135,7 +122,6 @@ export const expensesData = {
       details: '쿠팡에서 장봄',
       amount: 90000,
       category: '식비 > 기타',
-      etc: '',
     },
     {
       id: 10,
@@ -143,7 +129,6 @@ export const expensesData = {
       details: '후불교통비빠져나감',
       amount: 954000,
       category: '교통/차량 > 대중교통비',
-      etc: '',
     },
     {
       id: 11,
@@ -151,7 +136,6 @@ export const expensesData = {
       details: '아이스크림 할인점',
       amount: 8000,
       category: '식비 > 간식',
-      etc: '',
     },
     // {
     //   id: 12,
@@ -159,7 +143,7 @@ export const expensesData = {
     //   details: '편의점',
     //   amount: 2000,
     //   category: '의복/미용 > 기타',
-    //   etc: '',
+    //
     // },
     {
       id: 13,
@@ -167,7 +151,6 @@ export const expensesData = {
       details: 'OTT결제',
       amount: 25000,
       category: '주거/통신 > 기타',
-      etc: '',
     },
     {
       id: 14,
@@ -175,7 +158,6 @@ export const expensesData = {
       details: '쿠팡에서 장봄',
       amount: 90000,
       category: '식비 > 기타',
-      etc: '',
     },
     {
       id: 15,
@@ -183,7 +165,6 @@ export const expensesData = {
       details: '후불교통비빠져나감',
       amount: 54000,
       category: '교통/차량 > 대중교통비',
-      etc: '',
     },
   ],
 };
@@ -196,89 +177,79 @@ export const savingsData = {
       details: '옆돌기 재롱부리기',
       amount: 2000,
       category: '저축/보험 > 기타',
-      etc: '다음엔 앞구르기를..',
     },
-    { id: 2, date: '10.11', details: '설거지', amount: 5000, category: '전월이월 > 기타', etc: '' },
-    { id: 3, date: '10.12', details: '심부름', amount: 1000, category: '부수입 > 기타', etc: '' },
+    { id: 2, date: '10.11', details: '설거지', amount: 5000, category: '전월이월 > 기타' },
+    { id: 3, date: '10.12', details: '심부름', amount: 1000, category: '부수입 > 기타' },
     {
       id: 4,
       date: '10.15',
       details: '용돈',
       amount: 10000,
       category: '주수입 > 기타',
-      etc: '까까비',
     },
-    { id: 5, date: '10.08', details: '월급', amount: 20900, category: '미분류 > 월급', etc: '' },
+    { id: 5, date: '10.08', details: '월급', amount: 20900, category: '미분류 > 월급' },
     {
       id: 6,
       date: '10.19',
       details: '옆돌기 재롱부리기',
       amount: 2000,
       category: '부수입 > 기타',
-      etc: '다음엔 앞구르기를..',
     },
-    // { id: 7, date: '10.15', details: '설거지', amount: 11500, category: '부수입 > 기타', etc: '' },
-    // { id: 8, date: '10.15', details: '심부름', amount: 1000, category: '부수입 > 기타', etc: '' },
-    // {
-    //   id: 9,
-    //   date: '10.15',
-    //   details: '용돈',
-    //   amount: 10000,
-    //   category: '부수입 > 기타',
-    //   etc: '까까비',
-    // },
-    // { id: 10, date: '10.08', details: '월급', amount: 90000, category: '미분류 > 월급', etc: '' },
-    // {
-    //   id: 11,
-    //   date: '10.10',
-    //   details: '옆돌기 재롱부리기',
-    //   amount: 2000,
-    //   category: '부수입 > 기타',
-    //   etc: '다음엔 앞구르기를..',
-    // },
-    // {
-    //   id: 12,
-    //   date: '10.15',
-    //   details: '설거지',
-    //   amount: 505000,
-    //   category: '전월이월 > 기타',
-    //   etc: '',
-    // },
-    // { id: 13, date: '10.15', details: '심부름', amount: 1000, category: '부수입 > 기타', etc: '' },
-    // {
-    //   id: 14,
-    //   date: '10.15',
-    //   details: '용돈',
-    //   amount: 10000,
-    //   category: '부수입 > 기타',
-    //   etc: '까까비',
-    // },
-    // { id: 15, date: '10.08', details: '월급', amount: 2000000, category: '주수입 > 월급', etc: '' },
-    // {
-    //   id: 16,
-    //   date: '10.10',
-    //   details: '옆돌기 재롱부리기',
-    //   amount: 2000,
-    //   category: '부수입 > 기타',
-    //   etc: '다음엔 앞구르기를..',
-    // },
-    // { id: 17, date: '10.15', details: '설거지', amount: 5000, category: '부수입 > 기타', etc: '' },
-    // {
-    //   id: 18,
-    //   date: '10.15',
-    //   details: '심부름',
-    //   amount: 190000,
-    //   category: '저축/보험 > 기타',
-    //   etc: '',
-    // },
-    // {
-    //   id: 19,
-    //   date: '10.15',
-    //   details: '용돈',
-    //   amount: 1000,
-    //   category: '부수입 > 기타',
-    //   etc: '까까비',
-    // },
+    { id: 7, date: '10.15', details: '설거지', amount: 11500, category: '부수입 > 기타' },
+    { id: 8, date: '10.15', details: '심부름', amount: 1000, category: '부수입 > 기타' },
+    {
+      id: 9,
+      date: '10.15',
+      details: '용돈',
+      amount: 10000,
+      category: '부수입 > 기타',
+    },
+    { id: 10, date: '10.08', details: '월급', amount: 90000, category: '미분류 > 월급' },
+    {
+      id: 11,
+      date: '10.10',
+      details: '옆돌기 재롱부리기',
+      amount: 2000,
+      category: '부수입 > 기타',
+    },
+    {
+      id: 12,
+      date: '10.15',
+      details: '설거지',
+      amount: 505000,
+      category: '전월이월 > 기타',
+    },
+    { id: 13, date: '10.15', details: '심부름', amount: 1000, category: '부수입 > 기타' },
+    {
+      id: 14,
+      date: '10.15',
+      details: '용돈',
+      amount: 10000,
+      category: '부수입 > 기타',
+    },
+    { id: 15, date: '10.08', details: '월급', amount: 2000000, category: '주수입 > 월급' },
+    {
+      id: 16,
+      date: '10.10',
+      details: '옆돌기 재롱부리기',
+      amount: 2000,
+      category: '부수입 > 기타',
+    },
+    { id: 17, date: '10.15', details: '설거지', amount: 5000, category: '부수입 > 기타' },
+    {
+      id: 18,
+      date: '10.15',
+      details: '심부름',
+      amount: 190000,
+      category: '저축/보험 > 기타',
+    },
+    {
+      id: 19,
+      date: '10.15',
+      details: '용돈',
+      amount: 1000,
+      category: '부수입 > 기타',
+    },
   ],
 };
 

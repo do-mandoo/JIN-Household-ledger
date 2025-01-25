@@ -13,7 +13,7 @@ const koFont = {
 
 const drawerWidth = 240;
 
-const SideMenuBar = () => {
+const SidebarLogo = () => {
   return (
     <Drawer
       sx={{
@@ -43,4 +43,4 @@ const SideMenuBar = () => {
   );
 };
 
-export default SideMenuBar;
+export default SidebarLogo;

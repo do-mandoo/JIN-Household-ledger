@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Header from '../Header';
+import React, { useEffect, useState } from 'react';
+import Header from '../container/Header';
 import {
   Box,
   Button,
@@ -13,52 +13,115 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { savingsData, addSavings, deleteSavings, updateSavings } from '../../data/MockDatas';
-
-// const createData = (date, details, amount, category, etc) => {
-//   return { date, details, amount, category, etc };
-// };
-// const rowData = [
-//   createData('10.08', '월급', '2,000,000', '월급>월급', ''),
-//   createData('10.10', '옆돌기 재롱부리기', '2,000', '부수입>기타', '다음엔 앞구르기를..'),
-//   createData('10.15', '설거지', '500', '부수입>기타', ''),
-//   createData('10.15', '심부름', '1000', '부수입>기타', ''),
-//   createData('10.15', '용돈', '10,000', '부수입>기타', '까까비'),
-// ];
+// import { savingsData, deleteSavings, updateSavings } from '../data/MockDatas';
+import { getSavings, addSavings, updateSavings, deleteSavings } from '../utils/savingsCRUD';
 
 const SavingsWrap = () => {
-  // const [rows, setRows] = useState([{ data: '', detail: '', amount: '', category: '', etc: '' }]);
-
-  const [data, setData] = useState(savingsData.savings);
+  const [data, setData] = useState([]);
   const [form, setForm] = useState({
     data: '',
     details: '',
     amount: '',
     category: '',
-    etc: '',
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const savings = await getSavings(); // getSavings 함수 호출
+      setData(savings); // 로컬 또는 API 데이터 로드
+    };
+    fetchData(); // 비동기 데이터 호출
+  }, []); // 컴포넌트가 마운트될 때 한 번 실행
+
+  // 폼 데이터 변경
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(name, value, 'name,value');
-
     setForm({ ...form, [name]: value });
   };
 
-  const handleAdd = () => {
+  // 데이터 추가
+  const handleAdd = async () => {
     if (!form.date || !form.amount || !form.category) {
       alert('날짜, 금액, 분류는 필수 입력 항목입니다.');
       return;
     }
+
     const newData = {
       id: data.length + 1,
       ...form,
       amount: parseInt(form.amount, 10),
     };
-    // addSavings(newData);
-    setData(prevData => [...prevData, newData]);
-    setForm({ date: '', details: '', amount: '', category: '', etc: '' });
+
+    const updatedData = await addSavings(newData); // 새 데이터 추가
+    setData(prevData => [...prevData, newData]); // 상태 업데이트
+    setForm({ date: '', details: '', amount: '', category: '' }); // 폼 초기화
   };
+
+  // const handleAdd = () => {
+  //   if (!form.date || !form.amount || !form.category) {
+  //     alert('날짜, 금액, 분류는 필수 입력 항목입니다.');
+  //     return;
+  //   }
+  //   const newData = {
+  //     id: data.length + 1,
+  //     ...form,
+  //     amount: parseInt(form.amount, 10),
+  //   };
+  //   // addSavings(newData);
+  //   setData(prevData => [...prevData, newData]);
+  //   setForm({ date: '', details: '', amount: '', category: '', etc: '' });
+  // };
+
+  // // 데이터 삭제
+  // const handleDelete = async id => {
+  //   const updatedData = await deleteSavings(id); // 데이터 삭제
+  //   setData(updatedData); // 상태 업데이트
+  // };
+
+  // // 데이터 수정
+  // const handleUpdate = async id => {
+  //   const itemToEdit = data.find(item => item.id === id);
+  //   if (!itemToEdit) return;
+
+  //   const updatedDetails = prompt('수정할 사용내역을 입력하세요:', itemToEdit.details);
+  //   const updatedAmount = prompt('수정할 금액을 입력하세요:', itemToEdit.amount);
+  //   const updatedCategory = prompt('수정할 분류를 입력하세요:', itemToEdit.category);
+
+  //   if (updatedDetails && updatedAmount && updatedCategory) {
+  //     const updatedData = await updateSavings(id, {
+  //       details: updatedDetails,
+  //       amount: parseInt(updatedAmount, 10),
+  //       category: updatedCategory,
+  //     });
+
+  //     setData(updatedData); // 상태 업데이트
+  //   } else {
+  //     alert('필수 항목은 비울 수 없습니다.');
+  //   }
+  // };
+
+  //-----------------------------------------------------------------------------------------------------------
+  // const handleChange = e => {
+  //   const { name, value } = e.target;
+  //   console.log(name, value, 'name,value');
+
+  //   setForm({ ...form, [name]: value });
+  // };
+
+  // const handleAdd = () => {
+  //   if (!form.date || !form.amount || !form.category) {
+  //     alert('날짜, 금액, 분류는 필수 입력 항목입니다.');
+  //     return;
+  //   }
+  //   const newData = {
+  //     id: data.length + 1,
+  //     ...form,
+  //     amount: parseInt(form.amount, 10),
+  //   };
+  //   // addSavings(newData);
+  //   setData(prevData => [...prevData, newData]);
+  //   setForm({ date: '', details: '', amount: '', category: '', etc: '' });
+  // };
 
   const handleDelete = id => {
     deleteSavings(id);
@@ -108,6 +171,7 @@ const SavingsWrap = () => {
       alert('필수 항목 (사용내역, 금액, 분류)은 비울 수 없습니다.');
     }
   };
+  //-----------------------------------------------------------------------------------------------------------
 
   return (
     <>
@@ -116,17 +180,17 @@ const SavingsWrap = () => {
         <Box
           sx={{
             minHeight: '50px',
-            bgcolor: 'pink',
+
             display: 'flex',
             mb: '5px',
           }}
         >
-          <Box sx={{ flex: 1, bgcolor: 'green', mr: '5px' }}>
+          <Box sx={{ flex: 1, border: '1px solid #fff', mr: '5px' }}>
             <Typography sx={{ fontSize: '24px', textAlign: 'end', lineHeight: 2, pr: '10px' }}>
               수입 합계: 000,000원
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flex: 1, bgcolor: 'orange' }}>
+          <Box sx={{ display: 'flex', flex: 1, border: '1px solid #fff' }}>
             <Typography sx={{ flex: 1, fontSize: '24px', textAlign: 'end', lineHeight: 2 }}>
               지출 합계: 000,000원
             </Typography>
@@ -139,7 +203,7 @@ const SavingsWrap = () => {
         </Box>
 
         {/* 테이블 */}
-        <TableContainer component={Paper} sx={{ bgcolor: 'skyblue', maxHeight: 730 }}>
+        <TableContainer component={Paper} sx={{ maxHeight: 730 }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -147,7 +211,6 @@ const SavingsWrap = () => {
                 <TableCell sx={{ width: '450px' }}>사용내역</TableCell>
                 <TableCell sx={{ width: '250px' }}>금액</TableCell>
                 <TableCell sx={{ width: '200px' }}>분류</TableCell>
-                <TableCell sx={{ width: '340px' }}>기타</TableCell>
                 <TableCell sx={{ width: '40px', textAlign: 'center' }}>수정</TableCell>
                 <TableCell sx={{ width: '40px', textAlign: 'center' }}>삭제</TableCell>
               </TableRow>
@@ -159,7 +222,6 @@ const SavingsWrap = () => {
                   <TableCell>{row.details}</TableCell>
                   <TableCell>{row.amount.toLocaleString()}</TableCell>
                   <TableCell>{row.category}</TableCell>
-                  <TableCell>{row.etc}</TableCell>
                   <TableCell>
                     <Button onClick={() => handleUpdate(row.id)}>수정</Button>
                   </TableCell>
@@ -176,7 +238,6 @@ const SavingsWrap = () => {
           <TextField name='details' label='사용내역' value={form.details} onChange={handleChange} />
           <TextField name='amount' label='금액' value={form.amount} onChange={handleChange} />
           <TextField name='category' label='분류' value={form.category} onChange={handleChange} />
-          <TextField name='etc' label='기타' value={form.etc} onChange={handleChange} />
           <Button onClick={handleAdd}>추가</Button>
         </Box>
       </Box>

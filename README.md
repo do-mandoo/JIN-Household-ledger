@@ -1,70 +1,10 @@
-# Getting Started with Create React App
+## src>data>abc.json
+첫 문자가 대문자가 아닌 소문자인 이유
+- 첫 글자 대문자(컴포넌트): React컴포넌트는 첫 글자를 대문자로 작성하는 것이 관례(React가 대문자로 시작하는 파일을 컴포넌트로 인식하기 때문.)(Header.jsx, Dashboard.jsx)
+- 첫 글자 소문자(유틸리티/로직): 유틸리티 함수, 비즈니스 로직 또는 데이터 파일은 첫 글자를 소문자로 쓰는게 일반적. 이러한 파일은 React컴포넌트가 아니므로 대소문자 구분을 통해 파일의 역할을 명확히 할 수 있다. (savingsCRUD.js, savings.json)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## src>utils>abc.js
+jsx가 아닌 js를 사용한 이유
+- js(javascript파일): 일반적으로 로직이나 비즈니스 로직을 다룰 때 사용. 함수, 유틸리티, API호출 등 React컴포넌트가 아닌 파일들
+- jsx(javascripts XML): React컴포넌트처럼 JSX문법을 사용하는 경우에 사용. JSX는 HTML태그와 javascript를 혼합한 형태로 React에서 주로 UI를 그릴 때 사용.
+- 따라서 .js로 작성한 이유는 React컴포넌트가 아니라 CRUD로직(함수들)만 포함된 파일이다. 이 파일에는 JSX문법이 들어가지 않으므로 .js로 작성.

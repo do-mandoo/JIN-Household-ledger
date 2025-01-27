@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import SavingsCategorychart from '../../components/SavingsCategorychart';
-import SavingsDatechart from '../../components/SavingsDatechart';
+// import SavingsCategorychart from '../../charts/SavingsCategorychart';
+// import SavingsDatechart from '../../charts/SavingsDatechart';
 
 const SavingsAnalysis = ({ data, categories }) => {
   return (
@@ -10,7 +10,7 @@ const SavingsAnalysis = ({ data, categories }) => {
       {/* 분류별지출 */}
       <Box sx={{ width: '1400px', m: '5px auto' }}>
         <Typography sx={{ fontSize: '20px' }}>분류 전체</Typography>
-        <SavingsCategorychart data={data} categories={categories} />
+        {/* <SavingsCategorychart data={data} categories={categories} /> */}
       </Box>
 
       <Divider sx={{ bgcolor: 'black' }} />
@@ -52,7 +52,7 @@ const SavingsAnalysis = ({ data, categories }) => {
             </Box>
           ))}
         </Box>
-        <SavingsDatechart data={data} categories={categories} />
+        {/* <SavingsDatechart data={data} categories={categories} /> */}
       </Box>
     </Box>
   );

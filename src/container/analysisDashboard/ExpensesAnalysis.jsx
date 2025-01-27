@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import ExpensisCategorychart from '../../components/ExpensisCategorychart';
-import ExpensisDatechart from '../../components/ExpensisDatechart';
+// import ExpensisCategorychart from '../../charts/ExpensisCategorychart';
+// import ExpensisDatechart from '../../charts/ExpensisDatechart';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 
 const ExpensesAnalysis = ({ data, categories }) => {
@@ -10,7 +10,7 @@ const ExpensesAnalysis = ({ data, categories }) => {
       {/* 분류별지출 */}
       <Box sx={{ width: '1400px', m: '5px auto' }}>
         <Typography sx={{ fontSize: '20px' }}>분류 전체</Typography>
-        <ExpensisCategorychart data={data} categories={categories} />
+        {/* <ExpensisCategorychart data={data} categories={categories} /> */}
       </Box>
 
       <Divider sx={{ bgcolor: 'black' }} />
@@ -52,7 +52,7 @@ const ExpensesAnalysis = ({ data, categories }) => {
             </Box>
           ))}
         </Box>
-        <ExpensisDatechart data={data} categories={categories} />
+        {/* <ExpensisDatechart data={data} categories={categories} /> */}
       </Box>
     </Box>
   );

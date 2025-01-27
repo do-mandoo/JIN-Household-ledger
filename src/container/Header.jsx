@@ -3,6 +3,11 @@ import React from 'react';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import Face3Icon from '@mui/icons-material/Face3';
 
+const koFont = {
+  fontFamily: "'Jua', sans-serif",
+  fontSize: '40px',
+};
+
 const Header = () => {
   const getDate = new Date();
   const today = getDate.getFullYear() + '-' + (getDate.getMonth() + 1) + '-' + getDate.getDate();
@@ -20,16 +25,14 @@ const Header = () => {
           border: 'none',
         }}
       >
-        <Avatar sx={{ width: 60, minHeight: 60, bgcolor: '#acffaa' }}>
-          <ThumbUpAltOutlinedIcon sx={{ fontSize: '35px', color: '#028200' }} />
+        <Avatar sx={{ width: 60, minHeight: 60 }}>
+          <ThumbUpAltOutlinedIcon sx={{ fontSize: '35px' }} />
         </Avatar>
         <Box sx={{ ml: '10px' }}>
-          <Typography sx={{ fontSize: '24px', lineHeight: 1 }}>Hi, 홍길동</Typography>
+          <Typography sx={{ ...koFont, fontSize: '24px', lineHeight: 1 }}>Hi, 홍길동</Typography>
           <Box sx={{ display: 'flex' }}>
-            <Typography sx={{ color: '#028200', fontSize: '18px', lineHeight: 1 }}>
-              Great job
-            </Typography>
-            <Typography sx={{ color: '#555555', fontSize: '18px', lineHeight: 1 }}>
+            <Typography sx={{ ...koFont, fontSize: '18px', lineHeight: 1 }}>Great job</Typography>
+            <Typography sx={{ ...koFont, color: '#555555', fontSize: '18px', lineHeight: 1 }}>
               &nbsp; 저축을 잘 하고 있군요!
             </Typography>
           </Box>

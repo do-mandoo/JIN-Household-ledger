@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../Header';
+import Header from '../container/Header';
 import {
   Box,
   Paper,
@@ -51,7 +51,7 @@ const ExpensesWrap = () => {
       <Header />
       <Box>
         {/* -------------------------공금 지출----------------------*/}
-        <Box sx={{ bgcolor: 'skyblue', mb: '20px' }}>
+        <Box sx={{ mb: '20px' }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '50px' }}>
             <Typography sx={{ fontSize: '26px', lineHeight: 2 }}>공금지출</Typography>
             <Box sx={{ display: 'flex' }}>
@@ -63,7 +63,7 @@ const ExpensesWrap = () => {
           </Box>
 
           {/* 공금지출 테이블 */}
-          <TableContainer component={Paper} sx={{ bgcolor: 'blueviolet', maxHeight: 250 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 250 }}>
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
@@ -72,7 +72,6 @@ const ExpensesWrap = () => {
                   <TableCell sx={{ fontSize: '18px' }}>금액</TableCell>
                   <TableCell sx={{ fontSize: '18px' }}>분류</TableCell>
                   <TableCell sx={{ fontSize: '18px' }}>정산유무</TableCell>
-                  <TableCell sx={{ fontSize: '18px' }}>기타</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -83,7 +82,6 @@ const ExpensesWrap = () => {
                     <TableCell sx={{ fontSize: '18px' }}>{row.amount}</TableCell>
                     <TableCell sx={{ fontSize: '18px' }}>{row.category}</TableCell>
                     <TableCell sx={{ fontSize: '18px' }}>{row.yn}</TableCell>
-                    <TableCell sx={{ fontSize: '18px' }}>{row.etc}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -92,7 +90,7 @@ const ExpensesWrap = () => {
         </Box>
 
         {/* -------------------------개인 지출----------------------*/}
-        <Box sx={{ bgcolor: 'greenyellow' }}>
+        <Box sx={{}}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', minHeight: '50px' }}>
             <Typography sx={{ fontSize: '26px', lineHeight: 2 }}>개인지출</Typography>
             <Box sx={{ display: 'flex' }}>
@@ -104,7 +102,7 @@ const ExpensesWrap = () => {
           </Box>
 
           {/* 개인 지출 테이블 */}
-          <TableContainer component={Paper} sx={{ bgcolor: 'yellowgreen', maxHeight: 385 }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 385 }}>
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
@@ -112,7 +110,6 @@ const ExpensesWrap = () => {
                   <TableCell sx={{ fontSize: '18px' }}>사용내역</TableCell>
                   <TableCell sx={{ fontSize: '18px' }}>금액</TableCell>
                   <TableCell sx={{ fontSize: '18px' }}>분류</TableCell>
-                  <TableCell sx={{ fontSize: '18px' }}>기타</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -122,7 +119,6 @@ const ExpensesWrap = () => {
                     <TableCell sx={{ fontSize: '18px' }}>{row.details}</TableCell>
                     <TableCell sx={{ fontSize: '18px' }}>{row.amount}</TableCell>
                     <TableCell sx={{ fontSize: '18px' }}>{row.category}</TableCell>
-                    <TableCell sx={{ fontSize: '18px' }}>{row.etc}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

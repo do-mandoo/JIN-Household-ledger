@@ -15,6 +15,8 @@ import React from 'react';
 import PentagonIcon from '@mui/icons-material/Pentagon';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
+import ApexTripleLineChart from '../../charts/dashboard/TopSectionLineChart';
+import TopSectionGaugeChart from '../../charts/dashboard/TopSectionGaugeChart';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: '#fff',
@@ -46,7 +48,7 @@ const TopSection = () => {
                 sx={{ display: 'flex', alignItems: 'center', mb: '10px' }}
               >
                 <Typography sx={{ fontSize: '38px' }}>₩ 1,200,000</Typography>
-                <Chip label='+35%' sx={{ bgcolor: '#acffaa', color: '#028200' }} />
+                {/* <Chip label='+35%' sx={{ bgcolor: '#acffaa', color: '#028200' }} /> */}
                 {/* </Stack> */}
               </Stack>
               <Box
@@ -72,6 +74,7 @@ const TopSection = () => {
               </Box>
               <Box sx={{ height: '150px', textAlign: 'center', mb: '5px' }}>
                 {/* <TopSectionLineChart /> */}
+                <ApexTripleLineChart />
               </Box>
             </Card>
           </Paper>
@@ -79,7 +82,7 @@ const TopSection = () => {
         {/* 두번째 박스 */}
         <Grid2 size={{ xs: 6, md: 4.75 }}>
           <Paper elevation={0} sx={{ bgcolor: '#aaa', minHeight: '350px', p: 1 }}>
-            <Card variant='none' sx={{ bgcolor: '#5cb74c' }}>
+            <Card variant='none' sx={{ bgcolor: '#fff' }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -91,7 +94,7 @@ const TopSection = () => {
                 <Typography variant='subtitle2' sx={{ fontSize: '20px', mb: '20px' }}>
                   가계부
                 </Typography>
-                <ButtonGroup
+                {/* <ButtonGroup
                   variant='outlined'
                   aria-label='button group'
                   sx={{ bgcolor: '#319220' }}
@@ -105,7 +108,7 @@ const TopSection = () => {
                   <Button>
                     <PieChartIcon sx={{ color: '#fff' }} />
                   </Button>
-                </ButtonGroup>
+                </ButtonGroup> */}
               </Box>
               <Box
                 sx={{
@@ -115,9 +118,10 @@ const TopSection = () => {
                   mb: '20px',
                 }}
               >
-                <Box sx={{ mr: '10px', border: '1px solid #aaa' }}>
-                  <PentagonIcon sx={{ fontSize: '250px', color: '#ccc' }} />
-                </Box>
+                {/* <Box sx={{ mr: '10px', border: '1px solid #aaa' }}> */}
+                {/* <PentagonIcon sx={{ fontSize: '250px', color: '#ccc' }} /> */}
+                <TopSectionGaugeChart />
+                {/* </Box> */}
                 <Box>
                   <Box>
                     <Typography sx={{ fontSize: '20px', textAlign: 'end', color: '#fff' }}>

@@ -4,7 +4,8 @@ import MainPage from './pages/MainPage';
 
 const theme = createTheme({
   typography: {
-    fontFamily: "'Do Hyeon',sans-serif",
+    fontFamily: "'IBM Plex Sans KR', serif",
+    color: '#fff',
   },
 });
 

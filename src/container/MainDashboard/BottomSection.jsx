@@ -14,8 +14,10 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DashboardDonutchart from '../../components/DashboardDonutchart';
+// import DashboardDonutchart from '../../charts/dashboard/DashboardDonutchart';
 import { donutData } from '../../data/DonutData';
+import BottomSectionLineChart from '../../charts/dashboard/BottomSectionLineChart';
+import BottomSectionPieChart from '../../charts/dashboard/BottomSectionPieChart';
 
 const BottomSection = () => {
   const data = donutData();
@@ -33,6 +35,7 @@ const BottomSection = () => {
                   <Typography>투자 분석 더보기</Typography>
                 </Link>
               </Box>
+              <BottomSectionLineChart />
             </Card>
           </Paper>
         </Grid2>
@@ -63,13 +66,14 @@ const BottomSection = () => {
                     <Typography>000</Typography>
                   </Box>
                 </Stack>
-                <DashboardDonutchart
+                {/* <DashboardDonutchart
                   data={data}
                   width={300}
                   height={260}
                   innerRadius={130}
                   outerRadius={100}
-                />
+                /> */}
+                <BottomSectionPieChart />
               </Box>
             </Card>
           </Paper>

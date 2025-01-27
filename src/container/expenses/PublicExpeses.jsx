@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Box,
   Paper,
@@ -13,52 +13,25 @@ import {
   Button,
   Checkbox,
 } from '@mui/material';
-import {
-  getPublicExpenses,
-  addPublicExpense,
-  updatePublicExpense,
-  deletePublicExpense,
-} from '../../utils/publicExpensesCRUD';
 
-const PublicExpeses = ({}) => {
-  const [data, setData] = useState([]);
-  const [form, setForm] = useState({
-    date: '',
-    details: '',
-    amount: '',
-    category: '',
-    isSettled: false,
-  });
-  const [editingId, setEditingId] = useState(null); // 현재 수정 중인 항목 ID
-
-  // yyyy-MM-dd 형식을 mm.dd로 변환
+const PublicExpeses = ({
+  data,
+  form,
+  setForm,
+  editingId,
+  handleAdd,
+  handleUpdate,
+  handleDelete,
+  handleDateFocus,
+  handleEditClick,
+  publicExpensesTotal,
+  publicSettledTotal,
+}) => {
+  // yyyy-MM-dd -> mm.dd 변환
   const formatToMMDD = date => {
     const [year, month, day] = date.split('-');
     return `${month}.${day}`; // mm.dd 형식 반환
   };
-  // 오늘 날짜를 mm.dd 형식으로 가져오기
-  const getTodayDate = () => {
-    const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월 (2자리)
-    const day = String(today.getDate()).padStart(2, '0'); // 일 (2자리)
-    return `${month}.${day}`; // mm.dd 형식 반환
-  };
-
-  // 날짜 입력 필드가 포커스될 때 호출
-  const handleDateFocus = () => {
-    if (!form.date) {
-      setForm({ ...form, date: getTodayDate() }); // 오늘 날짜를 mm.dd 형식으로 설정
-    }
-  };
-
-  // 데이터 가져오기 READ-GET
-  useEffect(() => {
-    const fetchData = async () => {
-      const publicExpenses = await getPublicExpenses();
-      setData(publicExpenses);
-    };
-    fetchData();
-  }, []);
 
   // 폼 데이터 변경
   const handleChange = e => {
@@ -67,75 +40,27 @@ const PublicExpeses = ({}) => {
     if (name === 'date') {
       // yyyy-MM-dd 형식을 mm.dd로 변환
       const formattedDate = formatToMMDD(value);
-      setForm({ ...form, date: formattedDate });
+      // setForm({ ...form, date: formattedDate });
+      setForm(prev => ({ ...prev, date: formattedDate }));
+      // } else if (name === 'isSettled') {
+      //   const value = e.target.value.toLowerCase(); // 입력값을 소문자로 변환
+      //   if (value === 'true') {
+      //     setForm(prev => ({ ...prev, isSettled: true }));
+      //   } else if (value === 'false') {
+      //     setForm(prev => ({ ...prev, isSettled: false }));
+      //   } else {
+      //     alert('true 또는 false만 입력 가능합니다.');
+      //   }
+    } else if (name === 'amount') {
+      // amount는 숫자로 변환
+      setForm(prev => ({ ...prev, amount: parseInt(value, 10) || 0 }));
+      // } else if (type === 'checkbox') {
+      //   // checkbox는 true/false 처리
+      //   setForm(prev => ({ ...prev, [name]: e.target.checked }));
     } else {
-      setForm({ ...form, [name]: value });
-    }
-  };
-
-  // 데이터 추가CREATE-POST
-  const handleAdd = async () => {
-    if (!form.date || !form.amount || !form.category) {
-      alert('날짜, 금액, 분류는 필수 입력 항목입니다.');
-      return;
-    }
-    const newData = {
-      ...form,
-      amount: parseInt(form.amount, 10),
-    };
-    const addedData = await addPublicExpense(newData); // 서버에 새 데이터 추가 요청
-    setData(prevData => [...prevData, addedData]); // 로컬 상태 업데이트
-    setForm({ date: '', details: '', amount: '', category: '', isSettled: '' }); // 폼 초기화
-  };
-
-  // 데이터 삭제DELETE-DELETE
-  const handleDelete = async id => {
-    await deletePublicExpense(id); // API로 데이터 삭제 요청
-    setData(prevData => prevData.filter(item => item.id !== id)); // 로컬 상태 업데이트
-  };
-
-  // 수정 버튼 클릭 시 데이터 로드
-  const handleEditClick = row => {
-    setForm({
-      date: row.date,
-      details: row.details,
-      amount: row.amount,
-      category: row.category,
-      isSettled: row.isSettled,
-    });
-    setEditingId(row.id); // 현재 수정 중인 ID 설정
-  };
-
-  // 데이터 수정UPDATE-PUT
-  const handleUpdate = async () => {
-    if (!editingId) {
-      alert('수정 중인 항목이 없습니다.');
-      return;
-    }
-
-    const currentItem = data.find(item => item.id === editingId);
-    const filteredData = Object.keys(form).reduce((result, key) => {
-      if (form[key] && form[key] !== currentItem[key]) {
-        result[key] = form[key];
-      }
-      return result;
-    }, {});
-
-    if (Object.keys(filteredData).length === 0) {
-      alert('수정된 내용이 없습니다.');
-      return;
-    }
-
-    try {
-      const updated = await updatePublicExpense(editingId, filteredData);
-      setData(prevData =>
-        prevData.map(item => (item.id === editingId ? { ...item, ...updated } : item))
-      );
-      setEditingId(null); // 수정 중인 ID 초기화
-      setForm({ date: '', details: '', amount: '', category: '' }); // 폼 초기화
-    } catch (error) {
-      console.error('Update failed:', error);
-      alert('수정 중 오류가 발생했습니다.');
+      // setForm({ ...form, [name]: value });
+      // 기본 처리 (그 외 값들)
+      setForm(prev => ({ ...prev, [name]: value }));
     }
   };
 
@@ -146,15 +71,10 @@ const PublicExpeses = ({}) => {
           <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>공금지출</Typography>
           <Box sx={{ display: 'flex' }}>
             <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>
-              지출 합계: {data.reduce((sum, item) => sum + item.amount, 0).toLocaleString()}원
+              지출 합계: {publicExpensesTotal.toLocaleString()}원
             </Typography>
             <Typography sx={{ fontSize: '20px', lineHeight: 2, ml: '18px' }}>
-              정산 합계:{' '}
-              {data
-                .filter(item => item.isSettled)
-                .reduce((sum, item) => sum + item.amount, 0)
-                .toLocaleString()}
-              원
+              정산 합계: {publicSettledTotal.toLocaleString()}원
             </Typography>
           </Box>
         </Box>
@@ -227,6 +147,16 @@ const PublicExpeses = ({}) => {
             value={form.isSettled}
             onChange={handleChange}
           />
+          {/* <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+            <Checkbox
+              name='isSettled'
+              checked={form.isSettled} // Boolean 값으로 설정
+              onChange={
+                e => setForm(prev => ({ ...prev, isSettled: e.target.checked })) // Boolean 값으로 저장
+              }
+            />
+            <Typography>정산 완료</Typography>
+          </Box> */}
           {editingId ? (
             <Button onClick={handleUpdate} variant='contained'>
               저장

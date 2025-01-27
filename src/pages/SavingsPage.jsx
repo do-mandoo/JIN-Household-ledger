@@ -15,10 +15,9 @@ import {
   Checkbox,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { savingsData, deleteSavings, updateSavings } from '../data/MockDatas';
 import { getSavings, addSavings, updateSavings, deleteSavings } from '../utils/savingsCRUD';
 
-const SavingsWrap = () => {
+const SavingsPage = () => {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({
     date: '',
@@ -152,17 +151,17 @@ const SavingsWrap = () => {
             mb: '5px',
           }}
         >
-          <Box sx={{ flex: 1, border: '1px solid #fff', mr: '5px' }}>
-            <Typography sx={{ fontSize: '24px', textAlign: 'end', lineHeight: 2, pr: '10px' }}>
+          <Box sx={{ flex: 1, mr: '5px' }}>
+            <Typography sx={{ fontSize: '20px', textAlign: 'end', lineHeight: 2, pr: '10px' }}>
               수입 합계: {data.reduce((sum, item) => sum + item.amount, 0).toLocaleString()}원
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flex: 1, border: '1px solid #fff' }}>
-            <Typography sx={{ flex: 1, fontSize: '24px', textAlign: 'end', lineHeight: 2 }}>
+          <Box sx={{ display: 'flex', flex: 1 }}>
+            <Typography sx={{ flex: 1, fontSize: '20px', textAlign: 'end', lineHeight: 2 }}>
               지출 합계: 000,000원
             </Typography>
             <Typography
-              sx={{ flex: 1, fontSize: '24px', textAlign: 'end', lineHeight: 2, pr: '10px' }}
+              sx={{ flex: 1, fontSize: '20px', textAlign: 'end', lineHeight: 2, pr: '10px' }}
             >
               수입-지출: 000,000원
             </Typography>
@@ -170,8 +169,8 @@ const SavingsWrap = () => {
         </Box>
 
         {/* 테이블 */}
-        <TableContainer component={Paper} sx={{ maxHeight: 640 }}>
-          <Table stickyHeader>
+        <TableContainer component={Paper} sx={{ maxHeight: 650 }}>
+          <Table stickyHeader size='small'>
             <TableHead>
               <TableRow>
                 <TableCell padding='checkbox'>
@@ -207,7 +206,9 @@ const SavingsWrap = () => {
           </Table>
         </TableContainer>
         {/* 입력 폼 */}
-        <Box sx={{ display: 'flex', bgcolor: '#fff', height: '50px', mt: 2 }}>
+        <Box
+          sx={{ display: 'flex', bgcolor: '#fff', height: '50px', mt: '1px', borderRadius: '4px' }}
+        >
           <TextField
             name='date'
             label='날짜'
@@ -240,4 +241,4 @@ const SavingsWrap = () => {
   );
 };
 
-export default SavingsWrap;
+export default SavingsPage;

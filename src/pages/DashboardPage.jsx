@@ -4,7 +4,7 @@ import TopSection from '../container/MainDashboard/TopSection';
 import MiddleSection from '../container/MainDashboard/MiddleSection';
 import BottomSection from '../container/MainDashboard/BottomSection';
 
-const Dashboard = () => {
+const DashboardPage = () => {
   return (
     <>
       <Header />
@@ -15,4 +15,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

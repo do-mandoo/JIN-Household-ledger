@@ -61,7 +61,7 @@ const savingsCombinedData = [
   })),
 ];
 
-const AnalysisWrap = () => {
+const AnalysisPage = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (e, newValue) => {
@@ -89,4 +89,4 @@ const AnalysisWrap = () => {
   );
 };
 
-export default AnalysisWrap;
+export default AnalysisPage;

@@ -15,10 +15,15 @@ import {
   Checkbox,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { savingsData, deleteSavings, updateSavings } from '../data/MockDatas';
-import { getSavings, addSavings, updateSavings, deleteSavings } from '../utils/savingsCRUD';
+import {
+  getSavings,
+  addSavings,
+  updateSavings,
+  deleteSavings,
+  deleteAllSavings,
+} from '../utils/savingsCRUD';
 
-const SavingsWrap = () => {
+const SavingsPage = () => {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({
     date: '',
@@ -27,7 +32,7 @@ const SavingsWrap = () => {
     category: '',
   });
   const [editingId, setEditingId] = useState(null); // 현재 수정 중인 항목 ID
-  const [selected, setSelected] = useState([]); // checkbox에 check된 항목들 배열에 담기.
+  const [selectedId, setSelectedId] = useState([]); // checkbox에 check된 항목들 배열에 담기.
 
   // yyyy-MM-dd 형식을 mm.dd로 변환
   const formatToMMDD = date => {
@@ -73,6 +78,24 @@ const SavingsWrap = () => {
     }
   };
 
+  // 개인 지출 개별 체크박스 변경 핸들러
+  const handleCheckboxChange = (e, id) => {
+    if (e.target.checked) {
+      setSelectedId(prev => [...prev, id]);
+    } else {
+      setSelectedId(prev => prev.filter(selectedId => selectedId !== id));
+    }
+  };
+
+  // 개인 지출 전체 선택 체크박스 핸들러
+  const handleSelectAllClick = e => {
+    if (e.target.checked) {
+      setSelectedId(data.map(row => row.id)); // 모든 ID 선택
+    } else {
+      setSelectedId([]); // 전체 해제
+    }
+  };
+
   // 데이터 추가CREATE-POST
   const handleAdd = async () => {
     if (!form.date || !form.amount || !form.category) {
@@ -88,12 +111,6 @@ const SavingsWrap = () => {
     const addedData = await addSavings(newData); // 서버에 새 데이터 추가 요청
     setData(prevData => [...prevData, addedData]); // 로컬 상태 업데이트
     setForm({ date: '', details: '', amount: '', category: '' }); // 폼 초기화
-  };
-
-  // 데이터 삭제DELETE-DELETE
-  const handleDelete = async id => {
-    await deleteSavings(id); // API로 데이터 삭제 요청
-    setData(prevData => prevData.filter(item => item.id !== id)); // 로컬 상태 업데이트
   };
 
   // 수정 버튼 클릭 시 데이터 로드
@@ -140,42 +157,86 @@ const SavingsWrap = () => {
     }
   };
 
+  // DELETE-DELETE 개별 삭제
+  const handleDelete = async id => {
+    try {
+      await deleteSavings([id]); // API로 데이터 개별 삭제 배열로 전달하여 요청
+      const updatedData = data.filter(item => item.id !== id); // 로컬 상태 업데이트
+      setData(updatedData); // 상태 업데이트
+    } catch (error) {
+      console.error('Error deleting public expense:', error);
+    }
+  };
+
+  // DELETE-DELETE 선택 삭제
+  const handleDeletePublicSelected = async () => {
+    if (selectedId.length === 0) {
+      alert('삭제할 데이터를 선택해주세요.');
+      return;
+    }
+    try {
+      // 선택된 항목들을 삭제 요청
+      await deleteSavings(selectedId); // 여러 개 삭제 요청
+
+      // 삭제 후 로컬 상태 업데이트
+      const updatedData = data.filter(item => !selectedId.includes(item.id));
+      setData(updatedData);
+      setSelectedId([]); // 선택 초기화
+    } catch (error) {
+      console.error('Error deleting selected public expenses:', error);
+    }
+  };
+
+  // DELETE-DELETE 전체 삭제
+  const handleDeleteAllSavings = async () => {
+    try {
+      await deleteAllSavings(); // 전체 삭제 요청
+      setData([]); // 모든 데이터 삭제
+      selectedId([]); // 선택 초기화
+    } catch (error) {
+      console.error('Error deleting all public expenses:', error);
+    }
+  };
+
   return (
     <>
       <Header />
       <Box>
-        <Box
-          sx={{
-            minHeight: '50px',
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex' }}>
+            <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>수입내역</Typography>
 
-            display: 'flex',
-            mb: '5px',
-          }}
-        >
-          <Box sx={{ flex: 1, border: '1px solid #fff', mr: '5px' }}>
-            <Typography sx={{ fontSize: '24px', textAlign: 'end', lineHeight: 2, pr: '10px' }}>
+            <Button onClick={handleDeletePublicSelected}>선택삭제</Button>
+            <Button onClick={handleDeleteAllSavings}>전체삭제</Button>
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            <Typography sx={{ fontSize: '20px', textAlign: 'end', lineHeight: 2, pr: '10px' }}>
               수입 합계: {data.reduce((sum, item) => sum + item.amount, 0).toLocaleString()}원
             </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', flex: 1, border: '1px solid #fff' }}>
-            <Typography sx={{ flex: 1, fontSize: '24px', textAlign: 'end', lineHeight: 2 }}>
+            <Typography
+              sx={{ fontSize: '20px', textAlign: 'end', lineHeight: 2, mr: '20px', ml: '20px' }}
+            >
               지출 합계: 000,000원
             </Typography>
-            <Typography
-              sx={{ flex: 1, fontSize: '24px', textAlign: 'end', lineHeight: 2, pr: '10px' }}
-            >
+            <Typography sx={{ fontSize: '20px', textAlign: 'end', lineHeight: 2, pr: '10px' }}>
               수입-지출: 000,000원
             </Typography>
           </Box>
         </Box>
 
         {/* 테이블 */}
-        <TableContainer component={Paper} sx={{ maxHeight: 640 }}>
-          <Table stickyHeader>
+        <TableContainer component={Paper} sx={{ maxHeight: 650 }}>
+          <Table stickyHeader size='small'>
             <TableHead>
               <TableRow>
+                {/* 전체 선택 체크박스 */}
                 <TableCell padding='checkbox'>
-                  <Checkbox color='primary' />
+                  <Checkbox
+                    color='primary'
+                    indeterminate={selectedId.length > 0 && selectedId.length < data.length}
+                    checked={selectedId.length === data.length}
+                    onChange={handleSelectAllClick}
+                  />
                 </TableCell>
                 <TableCell sx={{ width: '150px' }}>날짜</TableCell>
                 <TableCell sx={{ width: '450px' }}>사용내역</TableCell>
@@ -186,28 +247,38 @@ const SavingsWrap = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell padding='checkbox'>
-                    <Checkbox color='primary' />
-                  </TableCell>
-                  <TableCell>{row.date}</TableCell>
-                  <TableCell>{row.details}</TableCell>
-                  <TableCell>{row.amount.toLocaleString()}</TableCell>
-                  <TableCell>{row.category}</TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleEditClick(row)}>수정</Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleDelete(row.id)}>삭제</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {data.map(row => {
+                const isSelected = selectedId.includes(row.id);
+                return (
+                  <TableRow key={row.id}>
+                    {/* 개별 체크박스 */}
+                    <TableCell padding='checkbox'>
+                      <Checkbox
+                        color='primary'
+                        checked={isSelected}
+                        onChange={e => handleCheckboxChange(e, row.id)}
+                      />
+                    </TableCell>
+                    <TableCell>{row.date}</TableCell>
+                    <TableCell>{row.details}</TableCell>
+                    <TableCell>{row.amount.toLocaleString()}</TableCell>
+                    <TableCell>{row.category}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleEditClick(row)}>수정</Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleDelete(row.id)}>삭제</Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
         {/* 입력 폼 */}
-        <Box sx={{ display: 'flex', bgcolor: '#fff', height: '50px', mt: 2 }}>
+        <Box
+          sx={{ display: 'flex', bgcolor: '#fff', height: '50px', mt: '1px', borderRadius: '4px' }}
+        >
           <TextField
             name='date'
             label='날짜'
@@ -240,4 +311,4 @@ const SavingsWrap = () => {
   );
 };
 
-export default SavingsWrap;
+export default SavingsPage;

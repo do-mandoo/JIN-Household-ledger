@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SavingsWrap from './SavingsWrap';
+import SavingsPage from './SavingsPage';
 import SidebarLogo from '../container/SidebarLogo';
-import Dashboard from './Dashboard';
-import ExpensesWrap from './ExpensesWrap';
-import AnalysisWrap from './AnalysisWrap';
-import InvestmentsWrap from './InvestmentsWrap';
+import DashboardPage from './DashboardPage';
+import ExpensesPage from './ExpensesPage';
+import AnalysisPage from './AnalysisPage';
+import InvestmentsPage from './InvestmentsPage';
 
 const MainPage = () => {
   return (
@@ -14,11 +14,11 @@ const MainPage = () => {
           <SidebarLogo />
           <div style={styles.right}>
             <Routes>
-              <Route path='/' element={<Dashboard />} />
-              <Route path='/expenses' element={<ExpensesWrap />} />
-              <Route path='/savings' element={<SavingsWrap />} />
-              <Route path='/investments' element={<InvestmentsWrap />} />
-              <Route path='/analysis' element={<AnalysisWrap />} />
+              <Route path='/' element={<DashboardPage />} />
+              <Route path='/expenses' element={<ExpensesPage />} />
+              <Route path='/savings' element={<SavingsPage />} />
+              <Route path='/investments' element={<InvestmentsPage />} />
+              <Route path='/analysis' element={<AnalysisPage />} />
             </Routes>
           </div>
         </div>

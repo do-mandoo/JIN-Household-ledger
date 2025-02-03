@@ -26,6 +26,11 @@ const PersonalExpenses = ({
   handleEditClick,
   personalExpensesTotal,
   allExpensesTotal,
+  personalSelectedIds,
+  handlePersonalCheckboxChange,
+  handlePersonalSelectAllClick,
+  handleDeletePersonalSelected,
+  handleDeleteAllPersonalcExpenses,
 }) => {
   // yyyy-MM-dd 형식을 mm.dd로 변환
   const formatToMMDD = date => {
@@ -67,7 +72,23 @@ const PersonalExpenses = ({
     <>
       <Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>개인지출</Typography>
+          <Box sx={{ display: 'flex' }}>
+            <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>개인지출</Typography>
+            <Button
+              onClick={handleDeletePersonalSelected}
+              // disabled={personalSelectedIds.length === 0}
+            >
+              선택 삭제
+            </Button>
+            <Button
+              onClick={handleDeleteAllPersonalcExpenses}
+              // disabled={data.length === 0}
+              // variant='contained'
+              // color='warning'
+            >
+              전체 삭제
+            </Button>
+          </Box>
           <Box sx={{ display: 'flex' }}>
             <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>
               지출 합계: {personalExpensesTotal.toLocaleString()}원
@@ -83,8 +104,17 @@ const PersonalExpenses = ({
           <Table stickyHeader size='small'>
             <TableHead>
               <TableRow>
+                {/* 전체 선택 체크박스 */}
+
                 <TableCell padding='checkbox'>
-                  <Checkbox color='primary' />
+                  <Checkbox
+                    color='primary'
+                    indeterminate={
+                      personalSelectedIds.length > 0 && personalSelectedIds.length < data.length
+                    }
+                    checked={personalSelectedIds.length === data.length}
+                    onChange={handlePersonalSelectAllClick}
+                  />
                 </TableCell>
                 <TableCell sx={{ fontSize: '14px' }}>날짜</TableCell>
                 <TableCell sx={{ fontSize: '14px' }}>사용내역</TableCell>
@@ -95,23 +125,31 @@ const PersonalExpenses = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell padding='checkbox'>
-                    <Checkbox color='primary' />
-                  </TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.date}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.details}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.amount}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.category}</TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleEditClick(row)}>수정</Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleDelete(row.id)}>삭제</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {data.map(row => {
+                const isSelected = personalSelectedIds.includes(row.id);
+                return (
+                  <TableRow key={row.id}>
+                    {/* 개별 체크박스 */}
+                    <TableCell padding='checkbox'>
+                      <Checkbox
+                        color='primary'
+                        checked={isSelected}
+                        onChange={e => handlePersonalCheckboxChange(e, row.id)}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.date}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.details}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.amount}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.category}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleEditClick(row)}>수정</Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleDelete(row.id)}>삭제</Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

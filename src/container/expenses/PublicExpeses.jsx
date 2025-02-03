@@ -14,6 +14,47 @@ import {
   Checkbox,
 } from '@mui/material';
 
+const isSettledPopup = ({ form, setForm }) => {
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleSelect = status => {
+    setForm(prevForm => ({ ...prevForm, isSettled: status }));
+    setOpenDialog(false);
+  };
+
+  return (
+    <div>
+      <Button variant='contained' onClick={handleOpenDialog}>
+        {form.isSettled === true
+          ? '정산완료'
+          : form.isSettled === false
+          ? '정산미완료'
+          : '정산 상태 선택'}
+      </Button>
+
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>정산 상태 선택</DialogTitle>
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleSelect(true)}>
+              <ListItemText primary='정산완료' />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleSelect(false)}>
+              <ListItemText primary='정산미완료' />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Dialog>
+    </div>
+  );
+};
+
 const PublicExpeses = ({
   data,
   form,
@@ -26,6 +67,11 @@ const PublicExpeses = ({
   handleEditClick,
   publicExpensesTotal,
   publicSettledTotal,
+  publicSelectedIds,
+  handlePublicCheckboxChange,
+  handlePublicSelectAllClick,
+  handleDeletePublicSelected,
+  handleDeleteAllPublicExpenses,
 }) => {
   // yyyy-MM-dd -> mm.dd 변환
   const formatToMMDD = date => {
@@ -68,7 +114,23 @@ const PublicExpeses = ({
     <>
       <Box sx={{ mb: '10px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>공금지출</Typography>
+          <Box sx={{ display: 'flex' }}>
+            <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>공금지출</Typography>
+            <Button
+              onClick={handleDeletePublicSelected}
+              // disabled={publicSelectedIds.length === 0}
+            >
+              선택 삭제
+            </Button>
+            <Button
+              onClick={handleDeleteAllPublicExpenses}
+              // disabled={data.length === 0}
+              // variant='contained'
+              // color='warning'
+            >
+              전체 삭제
+            </Button>
+          </Box>
           <Box sx={{ display: 'flex' }}>
             <Typography sx={{ fontSize: '20px', lineHeight: 2 }}>
               지출 합계: {publicExpensesTotal.toLocaleString()}원
@@ -84,8 +146,16 @@ const PublicExpeses = ({
           <Table stickyHeader size='small'>
             <TableHead>
               <TableRow>
+                {/* 전체 선택 체크박스 */}
                 <TableCell padding='checkbox'>
-                  <Checkbox color='primary' />
+                  <Checkbox
+                    color='primary'
+                    indeterminate={
+                      publicSelectedIds.length > 0 && publicSelectedIds.length < data.length
+                    }
+                    checked={publicSelectedIds.length === data.length}
+                    onChange={handlePublicSelectAllClick}
+                  />
                 </TableCell>
                 <TableCell sx={{ fontSize: '14px' }}>날짜</TableCell>
                 <TableCell sx={{ fontSize: '14px' }}>사용내역</TableCell>
@@ -97,26 +167,34 @@ const PublicExpeses = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell padding='checkbox'>
-                    <Checkbox color='primary' />
-                  </TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.date}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.details}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.amount}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>{row.category}</TableCell>
-                  <TableCell sx={{ fontSize: '14px' }}>
-                    {row.isSettled ? '정산완료' : '정산미완료'}
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleEditClick(row)}>수정</Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleDelete(row.id)}>삭제</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {data.map(row => {
+                const isSelected = publicSelectedIds.includes(row.id);
+                return (
+                  <TableRow key={row.id}>
+                    {/* 개별 체크박스 */}
+                    <TableCell padding='checkbox'>
+                      <Checkbox
+                        color='primary'
+                        checked={isSelected}
+                        onChange={e => handlePublicCheckboxChange(e, row.id)}
+                      />
+                    </TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.date}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.details}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.amount}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{row.category}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>
+                      {row.isSettled ? '정산완료' : '정산미완료'}
+                    </TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleEditClick(row)}>수정</Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleDelete(row.id)}>삭제</Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
@@ -147,16 +225,8 @@ const PublicExpeses = ({
             value={form.isSettled}
             onChange={handleChange}
           />
-          {/* <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-            <Checkbox
-              name='isSettled'
-              checked={form.isSettled} // Boolean 값으로 설정
-              onChange={
-                e => setForm(prev => ({ ...prev, isSettled: e.target.checked })) // Boolean 값으로 저장
-              }
-            />
-            <Typography>정산 완료</Typography>
-          </Box> */}
+          {/* 정산유무 버튼 */}
+          {/* <isSettledPopup form={form} setForm={setForm} /> */}
           {editingId ? (
             <Button onClick={handleUpdate} variant='contained'>
               저장

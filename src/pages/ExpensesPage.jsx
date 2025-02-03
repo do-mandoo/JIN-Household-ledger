@@ -8,6 +8,7 @@ import {
   addPublicExpense,
   updatePublicExpense,
   deletePublicExpense,
+  deleteAllPublicExpenses,
 } from '../utils/publicExpensesCRUD';
 
 import { getTodayDate } from '../utils/dateChangeToMMDD';
@@ -16,6 +17,7 @@ import {
   addPersonalExpense,
   updatePersonalExpense,
   deletePersonalExpense,
+  deleteAllPersonalExpenses,
 } from '../utils/personalExpensesCRUD';
 
 const ExpensesPage = () => {
@@ -45,6 +47,9 @@ const ExpensesPage = () => {
 
   const [editingPublicId, setEditingPublicId] = useState(null); // 공금 지출 수정 ID
   const [editingPersonalId, setEditingPersonalId] = useState(null); // 개인 지출 수정 ID
+
+  const [publicSelectedIds, setPublicSelectedIds] = useState([]); // 공금 지출 Id 데이터
+  const [personalSelectedIds, setPersonalSelectedIds] = useState([]); // 개인 지출 Id 데이터
 
   // 공금 지출 데이터 가져오기(초기 한 번만 로딩함)
   useEffect(() => {
@@ -97,6 +102,48 @@ const ExpensesPage = () => {
 
     // allExpensesTotal 업데이트
     setAllExpensesTotal(publicExpensesTotal + total);
+  };
+
+  // 공금 지출 개별 체크박스 변경 핸들러
+  const handlePublicCheckboxChange = (e, id) => {
+    if (e.target.checked) {
+      setPublicSelectedIds(prev => [...prev, id]);
+    } else {
+      setPublicSelectedIds(prev => prev.filter(selectedId => selectedId !== id));
+    }
+    // setPublicSelectedIds(prev =>
+    //   e.target.checked ? [...prev, id] : prev.filter(selectedId => selectedId !== id)
+    // );
+  };
+
+  // 공금 지출 전체 선택 체크박스 핸들러
+  const handlePublicSelectAllClick = e => {
+    if (e.target.checked) {
+      setPublicSelectedIds(publicExpensesData.map(row => row.id)); // 모든 ID 선택
+    } else {
+      setPublicSelectedIds([]); // 전체 해제
+    }
+  };
+
+  // 개인 지출 개별 체크박스 변경 핸들러
+  const handlePersonalCheckboxChange = (e, id) => {
+    if (e.target.checked) {
+      setPersonalSelectedIds(prev => [...prev, id]);
+    } else {
+      setPersonalSelectedIds(prev => prev.filter(selectedId => selectedId !== id));
+    }
+    // setPublicSelectedIds(prev =>
+    //   e.target.checked ? [...prev, id] : prev.filter(selectedId => selectedId !== id)
+    // );
+  };
+
+  // 개인 지출 전체 선택 체크박스 핸들러
+  const handlePersonalSelectAllClick = e => {
+    if (e.target.checked) {
+      setPersonalSelectedIds(personalExpensesData.map(row => row.id)); // 모든 ID 선택
+    } else {
+      setPersonalSelectedIds([]); // 전체 해제
+    }
   };
 
   //--------------START--------- CRUD Logic for Public Expenses--------------------
@@ -181,15 +228,47 @@ const ExpensesPage = () => {
     }
   };
 
-  //DELETE-DELETE
-  const handledDletePublicExpense = async id => {
+  // DELETE-DELETE 개별 삭제
+  const handledDeletePublicExpense = async id => {
     try {
-      await deletePublicExpense(id); // API로 데이터 삭제 요청
+      await deletePublicExpense([id]); // API로 데이터 개별 삭제 배열로 전달하여 요청
       const updatedData = publicExpensesData.filter(item => item.id !== id); // 로컬 상태 업데이트
-      setPublicExpensesData(updatedData);
+      setPublicExpensesData(updatedData); // 상태 업데이트
       calculatePublicExpensesTotals(updatedData);
     } catch (error) {
       console.error('Error deleting public expense:', error);
+    }
+  };
+
+  // DELETE-DELETE 선택 삭제
+  const handleDeletePublicSelected = async () => {
+    if (publicSelectedIds.length === 0) {
+      alert('삭제할 데이터를 선택해주세요.');
+      return;
+    }
+    try {
+      // 선택된 항목들을 삭제 요청
+      await deletePublicExpense(publicSelectedIds); // 여러 개 삭제 요청
+
+      // 삭제 후 로컬 상태 업데이트
+      const updatedData = publicExpensesData.filter(item => !publicSelectedIds.includes(item.id));
+      setPublicExpensesData(updatedData);
+      calculatePublicExpensesTotals(updatedData);
+      setPublicSelectedIds([]); // 선택 초기화
+    } catch (error) {
+      console.error('Error deleting selected public expenses:', error);
+    }
+  };
+
+  // DELETE-DELETE 전체 삭제
+  const handleDeleteAllPublicExpenses = async () => {
+    try {
+      await deleteAllPublicExpenses(); // 전체 삭제 요청
+      setPublicExpensesData([]); // 모든 데이터 삭제
+      calculatePublicExpensesTotals([]); // 합계 초기화
+      setPublicSelectedIds([]); // 선택 초기화
+    } catch (error) {
+      console.error('Error deleting all public expenses:', error);
     }
   };
   //--------------END--------- CRUD Logic for Public Expenses--------------------
@@ -277,15 +356,49 @@ const ExpensesPage = () => {
     }
   };
 
-  //DELETE-DELETE
-  const handledDletePersonalExpense = async id => {
+  // DELETE-DELETE 개별 삭제
+  const handledDeletePersonalExpense = async id => {
     try {
-      await deletePersonalExpense(id); // API로 데이터 삭제 요청
+      await deletePersonalExpense([id]); // API로 데이터 개별 삭제 배열로 전달하여 요청
       const updatedData = personalExpensesData.filter(item => item.id !== id); // 로컬 상태 업데이트
-      setPersonalExpensesData(updatedData);
+      setPersonalExpensesData(updatedData); // 상태 업데이트
       calculatePersonalExpensesTotals(updatedData);
     } catch (error) {
       console.error('Error deleting personal expense:', error);
+    }
+  };
+
+  // DELETE-DELETE 선택 삭제
+  const handleDeletePersonalSelected = async () => {
+    if (personalSelectedIds.length === 0) {
+      alert('삭제할 데이터를 선택해주세요.');
+      return;
+    }
+    try {
+      // 선택된 항목들을 삭제 요청
+      await deletePersonalExpense(personalSelectedIds); // 여러 개 삭제 요청
+
+      // 삭제 후 로컬 상태 업데이트
+      const updatedData = personalExpensesData.filter(
+        item => !personalSelectedIds.includes(item.id)
+      );
+      setPersonalExpensesData(updatedData);
+      calculatePersonalExpensesTotals(updatedData);
+      setPersonalSelectedIds([]); // 선택 초기화
+    } catch (error) {
+      console.error('Error deleting selected personal expenses:', error);
+    }
+  };
+
+  // DELETE-DELETE 전체 삭제
+  const handleDeleteAllPersonalcExpenses = async () => {
+    try {
+      await deleteAllPersonalExpenses(); // 전체 삭제 요청
+      setPersonalExpensesData([]); // 모든 데이터 삭제
+      calculatePersonalExpensesTotals([]); // 합계 초기화
+      setPersonalSelectedIds([]); // 선택 초기화
+    } catch (error) {
+      console.error('Error deleting all personal expenses:', error);
     }
   };
   //--------------END--------- CRUD Logic for Personal Expenses--------------------
@@ -304,9 +417,14 @@ const ExpensesPage = () => {
           handleEditClick={handlePublicEditClick}
           handleAdd={handleAddPublicExpense}
           handleUpdate={handleUpdatePublicExpense}
-          handleDelete={handledDletePublicExpense}
+          handleDelete={handledDeletePublicExpense}
           publicExpensesTotal={publicExpensesTotal}
           publicSettledTotal={publicSettledTotal}
+          publicSelectedIds={publicSelectedIds}
+          handlePublicCheckboxChange={handlePublicCheckboxChange}
+          handlePublicSelectAllClick={handlePublicSelectAllClick}
+          handleDeletePublicSelected={handleDeletePublicSelected}
+          handleDeleteAllPublicExpenses={handleDeleteAllPublicExpenses}
         />
 
         {/* --개인 지출-- */}
@@ -319,9 +437,14 @@ const ExpensesPage = () => {
           handleEditClick={handlePersonalEditClick}
           handleAdd={handleAddPersonalExpense}
           handleUpdate={handleUpdatePersonalExpense}
-          handleDelete={handledDletePersonalExpense}
+          handleDelete={handledDeletePersonalExpense}
           personalExpensesTotal={personalExpensesTotal}
           allExpensesTotal={allExpensesTotal}
+          personalSelectedIds={personalSelectedIds}
+          handlePersonalCheckboxChange={handlePersonalCheckboxChange}
+          handlePersonalSelectAllClick={handlePersonalSelectAllClick}
+          handleDeletePersonalSelected={handleDeletePersonalSelected}
+          handleDeleteAllPersonalcExpenses={handleDeleteAllPersonalcExpenses}
         />
       </Box>
     </>

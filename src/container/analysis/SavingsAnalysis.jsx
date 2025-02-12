@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import SavingsChart from '../../charts/analysis/SavingsChart';
+import SavingsCategoryChart from '../../charts/analysis/SavingsCategorychart';
 
 const SavingsAnalysis = () => {
   return (
     <Box>
-      수입
-      <SavingsChart />
+      <Typography>분류 전체</Typography>
+      <SavingsCategoryChart />
     </Box>
   );
 };

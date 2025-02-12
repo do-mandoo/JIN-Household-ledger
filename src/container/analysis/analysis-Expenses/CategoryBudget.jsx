@@ -12,16 +12,9 @@ import {
   Typography,
 } from '@mui/material';
 
-const CategoryBudget = ({
-  budgetData,
-  editData,
-  handleChange,
-  handleSave,
-  aggregatedData,
-  finalData,
-}) => {
+const CategoryBudget = ({ budgetData, handleChange, handleSave, finalData }) => {
   // 데이터가 로딩 중일 때 표시
-  if (!budgetData) return <div>로딩 중...</div>;
+  // if (!budgetData) return <div>로딩 중...</div>;
 
   return (
     <>
@@ -30,9 +23,6 @@ const CategoryBudget = ({
           <Typography>카테고리별 예산 설정</Typography>
         </Box>
         <TableContainer component={Paper}>
-          {/* <Typography sx={{ p: 2 }}>
-        카테고리별 예산 설정
-      </Typography> */}
           <Table size='small'>
             <TableHead>
               <TableRow>
@@ -44,24 +34,6 @@ const CategoryBudget = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {Object.entries(editData).map(([categoryName, settings]) => (
-                <TableRow key={categoryName}>
-                  <TableCell>{categoryName}</TableCell>
-                  <TableCell>
-                    <TextField
-                      type='number'
-                      value={settings.totalBudget}
-                      onChange={e => handleChange(categoryName, e.target.value)}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))} */}
-              {/* {aggregatedData.map(item => (
-                <TableRow key={item.category}>
-                  <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.totalAmount.toLocaleString()}원</TableCell>
-                </TableRow>
-              ))} */}
               {finalData.map(item => (
                 <TableRow key={item.category}>
                   <TableCell>{item.category}</TableCell>

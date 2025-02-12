@@ -33,32 +33,6 @@ const ExpensesAnalysis = () => {
     fetchData();
   }, []);
 
-  // 공동지출과 개인지출을 가져옴
-  // 공금 지출 데이터 가져오기(초기 한 번만 로딩함)
-  // useEffect(() => {
-  //   const fetchPublicExpenses = async () => {
-  //     try {
-  //       const response = await getPublicExpenses();
-  //       setPublicData(response);
-  //     } catch (error) {
-  //       console.log('카테고리 예산에서 공금지출 데이터를 불러오는데 실패했습니다.', error);
-  //     }
-  //   };
-  //   fetchPublicExpenses();
-  // }, []);
-
-  // // 개인 지출 데이터 가져오기(초기 한 번만 로딩함)
-  // useEffect(() => {
-  //   const fetchPersonalExpenses = async () => {
-  //     try {
-  //       const response = await getPersonalExpenses();
-  //       setPersonalData(response);
-  //     } catch (error) {
-  //       console.log('카테고리 예산에서 개인지출 데이터를 불러오는데 실패했습니다.', error);
-  //     }
-  //   };
-  //   fetchPersonalExpenses();
-  // }, []);
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
@@ -84,27 +58,10 @@ const ExpensesAnalysis = () => {
 
     const combined = {};
 
-    // // 공용 지출 데이터 처리
-    // publicData.forEach(expense => {
-    //   const category = expense.category;
-    //   if (combined[category]) {
-    //     combined[category] += expense.amount;
-    //   } else {
-    //     combined[category] = expense.amount;
-    //   }
-    // });
-    // // 개인 지출 데이터 처리
-    // personalData.forEach(expense => {
-    //   const category = expense.category;
-    //   if (combined[category]) {
-    //     combined[category] += expense.amount;
-    //   } else {
-    //     combined[category] = expense.amount;
-    //   }
-    // });
     [...publicData, ...personalData].forEach(expense => {
-      const category = expense.category;
-      combined[category] = (combined[category] || 0) + expense.amount;
+      const categoryFull = expense.category || '';
+      const mainCategory = categoryFull.split('>')[0].trim();
+      combined[mainCategory] = (combined[mainCategory] || 0) + expense.amount;
     });
 
     // 객체를 배열로 변환 (예: [{ category: '식비 > 간식', totalAmount: 38000 }, ...])
@@ -135,14 +92,6 @@ const ExpensesAnalysis = () => {
       const remainingBudget = totalBudget - totalAmount;
       return { category, totalBudget, totalAmount, remainingBudget };
     });
-
-    // const mergedData = Object.keys(editData).map(category => {
-    //   const totalBudget = editData[category]?.totalBudget || 0;
-    //   const totalAmount = aggregatedData.find(item => item.category === category)?.totalAmount || 0;
-    //   const remainingBudget = totalBudget - totalAmount;
-
-    //   return { category, totalBudget, totalAmount, remainingBudget };
-    // });
 
     // 기존 데이터와 비교하여 변경된 내용이 없으면 상태 업데이트하지 않음
     if (JSON.stringify(finalData) === JSON.stringify(mergedData)) return;

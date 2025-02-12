@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { getSavings } from '../../utils/savingsCRUD';
 
-const SavingsChart = () => {
+const SavingsCategoryChart = () => {
   const [chartData, setChartData] = useState({ categories: [], series: [] });
 
   useEffect(() => {
@@ -59,4 +59,4 @@ const SavingsChart = () => {
   );
 };
 
-export default SavingsChart;
+export default SavingsCategoryChart;
